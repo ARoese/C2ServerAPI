@@ -104,18 +104,26 @@ $(document).ready(function(){initNavTree('class_c2_server_a_p_i_1_1src_1_1server
   <div class="headertitle"><div class="title">C2ServerAPI.src.serverRegister.Registration Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents a registration of this chivalry server with a server browser.  
+ <a href="class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a2a9bd411abb57c68855f7964a49df932"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a2a9bd411abb57c68855f7964a49df932">__init__</a> (self, serverListAddress, int port=7777, AnyStr name=&quot;Chivalry 2 Server&quot;, AnyStr description=&quot;No description&quot;, AnyStr current_map=&quot;Unknown&quot;, int player_count=-1, int max_players=-1, mods=[])</td></tr>
+<tr class="memdesc:a2a9bd411abb57c68855f7964a49df932"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor for the registration class.  <br /></td></tr>
 <tr class="separator:a2a9bd411abb57c68855f7964a49df932"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add1c31cf0cebc64a4299563f3f24ea73"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#add1c31cf0cebc64a4299563f3f24ea73">updatePlayercount</a> (self, player_count)</td></tr>
+<tr class="memdesc:add1c31cf0cebc64a4299563f3f24ea73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the number of players currently playing on the server.  <br /></td></tr>
 <tr class="separator:add1c31cf0cebc64a4299563f3f24ea73"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11b22f3b3fc80d1856ae3c458cce6d1c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a11b22f3b3fc80d1856ae3c458cce6d1c">updateMaxPlayercount</a> (self, max_players)</td></tr>
+<tr class="memdesc:a11b22f3b3fc80d1856ae3c458cce6d1c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the max allowed number of players on the server.  <br /></td></tr>
 <tr class="separator:a11b22f3b3fc80d1856ae3c458cce6d1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3518a44dafd000dfeba66bf70c20c951"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a3518a44dafd000dfeba66bf70c20c951">updateMap</a> (self, current_map)</td></tr>
+<tr class="memdesc:a3518a44dafd000dfeba66bf70c20c951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the current map the server is running.  <br /></td></tr>
 <tr class="separator:a3518a44dafd000dfeba66bf70c20c951"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58900df00bc88b21945421f787cafeaf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a58900df00bc88b21945421f787cafeaf">stopHeartbeat</a> (self)</td></tr>
+<tr class="memdesc:a58900df00bc88b21945421f787cafeaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop sending heartbeats to the server browser.  <br /></td></tr>
 <tr class="separator:a58900df00bc88b21945421f787cafeaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af161d87f04a220cb403c1393b82d1a25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#af161d87f04a220cb403c1393b82d1a25">__enter__</a> (self)</td></tr>
 <tr class="separator:af161d87f04a220cb403c1393b82d1a25"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -129,7 +137,10 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a7173e21feda4edbc8960dee9d3c1183c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a7173e21feda4edbc8960dee9d3c1183c">refreshBy</a></td></tr>
 <tr class="separator:a7173e21feda4edbc8960dee9d3c1183c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a registration of this chivalry server with a server browser. </p>
+<p>This class automatically manages heartbeats and information-sharing with a chivalry server list. updates to this object (such as map/player count changes) are automatically sent to the server list specified in the constructor. Heartbeat signals are also sent periodically at the interval(s) requested by the server. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2a9bd411abb57c68855f7964a49df932" name="a2a9bd411abb57c68855f7964a49df932"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2a9bd411abb57c68855f7964a49df932">&#9670;&#160;</a></span>__init__()</h2>
 
@@ -197,6 +208,9 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Constructor for the registration class. </p>
+<p>:param serverListAddress: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param port: The port on which the chivalry server is being hosted on. :param name: The name for this server that will be listed in the browser :param description: A description of the server that will be listed in the browser :param current_map: The current map of the chivalry server. This can be updated later. :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once :param mods: TODO: UNIMPLEMENTED A list of mods that this server is running, that clients should download and install before joining. </p>
 
 </div>
 </div>
@@ -293,6 +307,9 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Stop sending heartbeats to the server browser. </p>
+<p>This effectively makes the object useless. It should not be called, but is made available in case it would be impractical to explicitly destroy the object. If you find yourself using this function, consider using <code>del</code>, or use the <code>with</code> language construct </p>
+
 </div>
 </div>
 <a id="a3518a44dafd000dfeba66bf70c20c951" name="a3518a44dafd000dfeba66bf70c20c951"></a>
@@ -320,6 +337,10 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Update the current map the server is running. </p>
+<p>This function will automatically push this update to the serverlist</p>
+<p>:param current_map: The new map </p>
 
 </div>
 </div>
@@ -349,6 +370,10 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Update the max allowed number of players on the server. </p>
+<p>This function will automatically push this update to the serverlist</p>
+<p>:param max_players: The new max number of players </p>
+
 </div>
 </div>
 <a id="add1c31cf0cebc64a4299563f3f24ea73" name="add1c31cf0cebc64a4299563f3f24ea73"></a>
@@ -376,6 +401,10 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Update the number of players currently playing on the server. </p>
+<p>This function will automatically push this update to the serverlist</p>
+<p>:param player_count: The new player count </p>
 
 </div>
 </div>
