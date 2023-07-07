@@ -1,1 +1,1 @@
-See documentation at https://aroese.github.io/C2ServerAPI/
+See documentation at https://Chiv2-Community.github.io/C2ServerAPI/
