@@ -26,6 +26,7 @@ var NAVTREE =
 [
   [ "Chivalry private server API", "index.html", [
     [ "mainpage", "index.html", "index" ],
+    [ "README", "md__r_e_a_d_m_e.html", null ],
     [ "Packages", "namespaces.html", [
       [ "Package List", "namespaces.html", "namespaces_dup" ],
       [ "Package Members", "namespacemembers.html", [
@@ -39,7 +40,8 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -50,7 +52,7 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"annotated.html"
+"____init_____8py.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -106,13 +106,13 @@ Introduction</h1>
 <p>Currently, the major use of this is the implementation of unattended dedicated servers. This also provides enough flexibility to allow implementation of features such as end-game map voting on those dedicated servers. For more information on uses, see my other projects.</p>
 <h1><a class="anchor" id="Project"></a>
 overview</h1>
-<p>This project consists on two major components: <a class="el" href="namespaceinput_lib.html" title="Provides several functions for low-level input to the chivalry window.">inputLib</a> and <a class="el" href="namespacegui_server.html" title="Provides a class encapsulating a chivalry 2 instance.">guiServer</a></p>
+<p>This project consists on two major components: inputLib and guiServer</p>
 <h2><a class="anchor" id="inputLib"></a>
 inputLib</h2>
-<p>InputLib is a simple back-end for sending keypresses to the chivalry window. It should not be used directly, but it is used heavily by <a class="el" href="namespacegui_server.html" title="Provides a class encapsulating a chivalry 2 instance.">guiServer</a></p>
+<p>InputLib is a simple back-end for sending keypresses to the chivalry window. It should not be used directly, but it is used heavily by guiServer</p>
 <h2><a class="anchor" id="guiServer"></a>
 guiServer</h2>
-<p><a class="el" href="namespacegui_server.html" title="Provides a class encapsulating a chivalry 2 instance.">guiServer</a> contains the Chivalry class, which serves to encapsulate the game. An instance of this chivalry class corresponds to a running instance of the chivalry 2 process. Member functions of the object act on that process to provide functionality such as opening the in-game console, sending commands to it, reading the output of those commands, and even getting the game-time remaining and detecting the game-state.</p>
+<p>guiServer contains the Chivalry class, which serves to encapsulate the game. An instance of this chivalry class corresponds to a running instance of the chivalry 2 process. Member functions of the object act on that process to provide functionality such as opening the in-game console, sending commands to it, reading the output of those commands, and even getting the game-time remaining and detecting the game-state.</p>
 <h1><a class="anchor" id="Examples"></a>
 Examples</h1>
 <p>Below is an example demonstrating a simple use-case of the API and it's functions. It is mostly self-explanatory.</p>
