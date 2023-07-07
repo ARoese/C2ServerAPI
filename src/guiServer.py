@@ -1,11 +1,11 @@
 """Provides a class encapsulating a chivalry 2 instance"""
 
-from PIL import ImageGrab
+from PIL import ImageGrab, Image, ImageDraw, ImageFont
 import pytesseract
 import win32gui, win32con, win32process, win32api
 from time import sleep
 
-import inputLib
+from . import inputLib
 
 class Chivalry:
     """Class representing a running instance of the Chivalry 2 game.
@@ -61,19 +61,27 @@ class Chivalry:
         screenshot.show() #DEBUG
         print(pytesseract.image_to_string(screenshot))
         
-    def getChivScreenshot(self):
+    def getChivScreenshot(self, tabDown=False):
         """Returns a PIL image of the entire chivalry 2 window, as it appears on-screen to a human user.
         """
         hwnd = self.getChivalryWindowHandle()
         self.getFocus(hwnd)
         #win32gui.SetForegroundWindow(hwnd)
         sleep(0.1)
+        if tabDown:
+            inputLib.tabDown()
+            sleep(0.1)
         
         windowRect = win32gui.GetWindowRect(hwnd)
         #clientRect = win32gui.GetClientRect(hwnd)
         #print(windowRect)
         #print(clientRect)
-        return ImageGrab.grab(windowRect)
+        image = ImageGrab.grab(windowRect)
+        if tabDown:
+            inputLib.tabUp()
+            sleep(0.1)
+
+        return image
 
     #precondition: the extended view of the console is open in chivalry
     def getConsoleOutput(self):
@@ -117,15 +125,31 @@ class Chivalry:
         width, height = screenshot.size
         #crop to location of timer on screen
         screenshot = screenshot.crop((0.45*width, 0.08*height, 0.55*width, 0.13*height))
+        
+        #process and isolate text
+
+        screenshot = screenshot.quantize(colors=128).convert(mode="RGB")
+        return pytesseract.image_to_string(screenshot)
+    
+    def getPlayerCount(self):
+        return 0
+        #this will eventually return an actual number from the game...
+        #the OCR for this is surprisingly difficult
+        screenshot = self.getChivScreenshot(tabDown=True)
+        width, height = screenshot.size
+        
+        #crop to location of timer on screen
+        screenshot = screenshot.crop((0.47*width, height*0.18, 0.53*width, height*0.22))
 
         #process and isolate text
-        #screenshot.show()
         
-        #enhancer = ImageEnhance.Contrast(screenshot)
-        #screenshot = enhancer.enhance(1.5)
         screenshot = screenshot.quantize(colors=128).convert(mode="RGB")
-        #screenshot.show()
+
+        
+
+        screenshot.show()
         return pytesseract.image_to_string(screenshot)
+
 
     def isGameEnd(self):
         """Returns true or false, indicating whether or not the game is currently in a game-end state.

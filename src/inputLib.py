@@ -88,3 +88,18 @@ def typeString(string):
         for char in line:
             sendLetterPress(char)
         sendKeyPress(win32con.VK_RETURN)
+
+def tabDown():
+    """Press down the tab key.
+
+    The tab key will be held until the tabUp() function is called, or something else sends the tab up event.
+    (the user can do this by pressing tab themselves)
+    """
+    win32api.keybd_event(win32con.VK_TAB, 0x0, 0x0001)
+
+def tabUp():
+    """Release the tab key.
+
+    This function should only be called sometime after a call to tabDown().
+    """
+    win32api.keybd_event(win32con.VK_TAB, 0x0, 0x0002)
