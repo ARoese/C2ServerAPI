@@ -35,19 +35,24 @@ class Registration:
         self.__current_map = current_map 
         self.__player_count = player_count
         self.__max_players=max_players
-        self.__serverListAddress=serverListAddress
+        self.serverListAddress=serverListAddress
         self.__stopHeartBeat = Condition()
-        self.__port = port
+        self.port = port
         #acquire the heartbeat mutex immediately, so that the heartBeat thread can never obtain it
         #until we release it in __stopHeartbeat()
         self.__stopHeartBeat.acquire()
         #register with the serverList
         self.__heartBeatThread = None
-        self.refreshBy = serverBrowser.registerServer(self.__serverListAddress, port, name, 
+        self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(self.serverListAddress, port, name, 
                    description, self.__current_map, self.__player_count, self.__max_players, mods)
         #start the heartbeat thread
         self.__heartBeatThread = Thread(target=self.__heartBeatThreadTarget)
         self.__heartBeatThread.start()
+
+    def __pushUpdateToBackend(self):
+        serverBrowser.updateServer(self.serverListAddress, 
+                self.unique_id, self.__key, self.port, self.__player_count, 
+                self.__max_players, self.__current_map)
 
     def updatePlayercount(self, player_count):
         """Update the number of players currently playing on the server
@@ -58,7 +63,7 @@ class Registration:
         """
         with self.__mutex:
             self.__player_count = player_count
-        self.__doHeartBeat()
+            self.__pushUpdateToBackend()
 
     def updateMaxPlayercount(self, max_players):
         """Update the max allowed number of players on the server
@@ -69,7 +74,7 @@ class Registration:
         """
         with self.__mutex:
             self.__max_players = max_players
-        self.__doHeartBeat()
+            self.__pushUpdateToBackend()
 
     def updateMap(self, current_map):
         """Update the current map the server is running
@@ -80,7 +85,7 @@ class Registration:
         """
         with self.__mutex:
             self.__current_map = current_map
-        self.__doHeartBeat()
+            self.__pushUpdateToBackend()
 
     def stopHeartbeat(self):
         """Stop sending heartbeats to the server browser
@@ -102,9 +107,7 @@ class Registration:
             return
         with self.__mutex:
             print("Heartbeat")
-            self.refreshBy = serverBrowser.heartbeat(self.__serverListAddress, self.__port, 
-                                                           self.__current_map, self.__player_count, 
-                                                           self.__max_players)
+            self.refreshBy = serverBrowser.heartbeat(self.serverListAddress, self.unique_id, self.__key, self.port)
 
     def __heartBeatThreadTarget(self):
         print("Heartbeat thread started")
