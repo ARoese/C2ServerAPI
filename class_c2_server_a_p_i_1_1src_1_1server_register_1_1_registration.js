@@ -8,5 +8,8 @@ var class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration =
     [ "updateMap", "class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a3518a44dafd000dfeba66bf70c20c951", null ],
     [ "updateMaxPlayercount", "class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a11b22f3b3fc80d1856ae3c458cce6d1c", null ],
     [ "updatePlayercount", "class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#add1c31cf0cebc64a4299563f3f24ea73", null ],
-    [ "refreshBy", "class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a7173e21feda4edbc8960dee9d3c1183c", null ]
+    [ "port", "class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#af7cc8b300f2f773bd4bd3bd1978fd9ed", null ],
+    [ "refreshBy", "class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a7173e21feda4edbc8960dee9d3c1183c", null ],
+    [ "serverListAddress", "class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#ac16de23de613b25d1f4fd9da4e70a77d", null ],
+    [ "unique_id", "class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#adbc5289d820a2363173445aae98c54af", null ]
 ];

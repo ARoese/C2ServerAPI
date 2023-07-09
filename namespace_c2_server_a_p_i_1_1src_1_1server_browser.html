@@ -105,12 +105,15 @@ $(document).ready(function(){initNavTree('namespace_c2_server_a_p_i_1_1src_1_1se
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:afad6543476f1daa6a5dc775c1e0018a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#afad6543476f1daa6a5dc775c1e0018a0">registerServer</a> (AnyStr address, int port=7777, AnyStr name=&quot;Chivalry 2 Server&quot;, AnyStr description=&quot;No description&quot;, AnyStr current_map=&quot;Unknown&quot;, int player_count=-1, int max_players=-1, mods=[])</td></tr>
-<tr class="memdesc:afad6543476f1daa6a5dc775c1e0018a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a chivalry server with a server browser backend.  <br /></td></tr>
-<tr class="separator:afad6543476f1daa6a5dc775c1e0018a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a832c5c6962b4b6066dacbb17030e8195"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a832c5c6962b4b6066dacbb17030e8195">heartbeat</a> (AnyStr address, int port=7777, AnyStr current_map=&quot;Unknown&quot;, int player_count=-1, int max_players=-1)</td></tr>
-<tr class="memdesc:a832c5c6962b4b6066dacbb17030e8195"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a heartbeat to the server browser backend.  <br /></td></tr>
-<tr class="separator:a832c5c6962b4b6066dacbb17030e8195"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1268e1cc2cf2a6f6d7264aa2bc7c7048"><td class="memItemLeft" align="right" valign="top">Tuple[str, float]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a1268e1cc2cf2a6f6d7264aa2bc7c7048">registerServer</a> (AnyStr address, int port=7777, AnyStr name=&quot;Chivalry 2 Server&quot;, AnyStr description=&quot;No description&quot;, AnyStr current_map=&quot;Unknown&quot;, int player_count=-1, int max_players=-1, mods=[])</td></tr>
+<tr class="memdesc:a1268e1cc2cf2a6f6d7264aa2bc7c7048"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a chivalry server with a server browser backend.  <br /></td></tr>
+<tr class="separator:a1268e1cc2cf2a6f6d7264aa2bc7c7048"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcdf1b4346ab4f6a07eda9d3e818e5dc"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#abcdf1b4346ab4f6a07eda9d3e818e5dc">updateServer</a> (AnyStr address, str unique_id, str key, int port, int player_count, int max_players, str current_map)</td></tr>
+<tr class="memdesc:abcdf1b4346ab4f6a07eda9d3e818e5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a heartbeat to the server browser backend.  <br /></td></tr>
+<tr class="separator:abcdf1b4346ab4f6a07eda9d3e818e5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a318a4fa3b63f415e5221a838bcbcff43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a318a4fa3b63f415e5221a838bcbcff43">heartbeat</a> (AnyStr address, str unique_id, str key, int port)</td></tr>
+<tr class="memdesc:a318a4fa3b63f415e5221a838bcbcff43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a heartbeat to the server browser backend.  <br /></td></tr>
+<tr class="separator:a318a4fa3b63f415e5221a838bcbcff43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac00eee1f7c7033c0fbdb177e0abc554c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#ac00eee1f7c7033c0fbdb177e0abc554c">getServerList</a> (AnyStr address)</td></tr>
 <tr class="memdesc:ac00eee1f7c7033c0fbdb177e0abc554c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retreive a list of all Chivalry servers registered with the backend.  <br /></td></tr>
 <tr class="separator:ac00eee1f7c7033c0fbdb177e0abc554c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -139,8 +142,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a832c5c6962b4b6066dacbb17030e8195" name="a832c5c6962b4b6066dacbb17030e8195"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a832c5c6962b4b6066dacbb17030e8195">&#9670;&#160;</a></span>heartbeat()</h2>
+<a id="a318a4fa3b63f415e5221a838bcbcff43" name="a318a4fa3b63f415e5221a838bcbcff43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a318a4fa3b63f415e5221a838bcbcff43">&#9670;&#160;</a></span>heartbeat()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -154,26 +157,20 @@ Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int &#160;</td>
-          <td class="paramname"><em>port</em> = <code>7777</code>, </td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>unique_id</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">AnyStr &#160;</td>
-          <td class="paramname"><em>current_map</em> = <code>&quot;Unknown&quot;</code>, </td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int &#160;</td>
-          <td class="paramname"><em>player_count</em> = <code>-1</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int &#160;</td>
-          <td class="paramname"><em>max_players</em> = <code>-1</code>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -185,19 +182,19 @@ Functions</h2></td></tr>
 
 <p>Send a heartbeat to the server browser backend. </p>
 <p>Heatbeats must be sent periodically</p>
-<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param port: The port on which the chivalry server is listening on. :param current_map: The current map of the chivalry server. This can be updated later. :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once</p>
+<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param port: The port on which the chivalry server is listening on.</p>
 <p>:returns: The time by which the next heartbeat must be sent, or else this registration times out :raises: RuntimeError when a non-ok http status is received </p>
 
 </div>
 </div>
-<a id="afad6543476f1daa6a5dc775c1e0018a0" name="afad6543476f1daa6a5dc775c1e0018a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afad6543476f1daa6a5dc775c1e0018a0">&#9670;&#160;</a></span>registerServer()</h2>
+<a id="a1268e1cc2cf2a6f6d7264aa2bc7c7048" name="a1268e1cc2cf2a6f6d7264aa2bc7c7048"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1268e1cc2cf2a6f6d7264aa2bc7c7048">&#9670;&#160;</a></span>registerServer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">C2ServerAPI.src.serverBrowser.registerServer </td>
+          <td class="memname"> Tuple[str,float] C2ServerAPI.src.serverBrowser.registerServer </td>
           <td>(</td>
           <td class="paramtype">AnyStr&#160;</td>
           <td class="paramname"><em>address</em>, </td>
@@ -254,6 +251,69 @@ Functions</h2></td></tr>
 
 <p>Register a chivalry server with a server browser backend. </p>
 <p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param port: The port on which the chivalry server is listening on. :param name: The name for this server that will be listed in the browser :param description: A description of the server that will be listed in the browser :param current_map: The current map of the chivalry server. This can be updated later. :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once :param mods: TODO: UNIMPLEMENTED A list of mods that this server is running, that clients should download and install before joining.</p>
+<p>:returns: (str, str, float) The unique ID of the registered server, The key required to update this server registration in the future, and The time by which the next heartbeat must be sent, or else this registration times out :raises: RuntimeError when a non-ok http status is received </p>
+
+</div>
+</div>
+<a id="abcdf1b4346ab4f6a07eda9d3e818e5dc" name="abcdf1b4346ab4f6a07eda9d3e818e5dc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcdf1b4346ab4f6a07eda9d3e818e5dc">&#9670;&#160;</a></span>updateServer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None C2ServerAPI.src.serverBrowser.updateServer </td>
+          <td>(</td>
+          <td class="paramtype">AnyStr&#160;</td>
+          <td class="paramname"><em>address</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>unique_id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>key</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>port</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>player_count</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>max_players</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">str&#160;</td>
+          <td class="paramname"><em>current_map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Send a heartbeat to the server browser backend. </p>
+<p>Heatbeats must be sent periodically</p>
+<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param unique_id: The unique id for the server issued by the backend through the registerServer() function :param port: The port on which the chivalry server is listening on. :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once :param current_map: The current map of the chivalry server. This can be updated later.</p>
 <p>:returns: The time by which the next heartbeat must be sent, or else this registration times out :raises: RuntimeError when a non-ok http status is received </p>
 
 </div>

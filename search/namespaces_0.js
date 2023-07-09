@@ -6,5 +6,6 @@ var searchData=
   ['inputlib_3',['inputLib',['../namespace_c2_server_a_p_i_1_1src_1_1input_lib.html',1,'C2ServerAPI::src']]],
   ['serverbrowser_4',['serverBrowser',['../namespace_c2_server_a_p_i_1_1src_1_1server_browser.html',1,'C2ServerAPI::src']]],
   ['serverregister_5',['serverRegister',['../namespace_c2_server_a_p_i_1_1src_1_1server_register.html',1,'C2ServerAPI::src']]],
-  ['src_6',['src',['../namespace_c2_server_a_p_i_1_1src.html',1,'C2ServerAPI']]]
+  ['src_6',['src',['../namespace_c2_server_a_p_i_1_1src.html',1,'C2ServerAPI']]],
+  ['testreg_7',['testReg',['../namespace_c2_server_a_p_i_1_1test_reg.html',1,'C2ServerAPI']]]
 ];
