@@ -1,4 +1,5 @@
 from src.serverRegister import Registration, serverBrowser
+from src import a2s
 from time import sleep
 
 import signal
@@ -11,7 +12,10 @@ serverBrowser.getServerList(REMOTE)
 
 with Registration(REMOTE) as re:
     for i in range(10):
-        re.updateMap(str(i))
+        gameInfo = a2s.getInfo(("localhost",7071))
+        re.updateMap(gameInfo.mapName)
+        re.updatePlayercount(gameInfo.playerCount)
+        re.updateMaxPlayercount(gameInfo.maxPlayers)
         sleep(5)
         print(serverBrowser.getServerList(REMOTE))
 

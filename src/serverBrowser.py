@@ -86,7 +86,7 @@ def updateServer(address : AnyStr, unique_id : str, key : str, port : int,
     }
 
     response = requests.put(address+"/api/v1/servers/"+unique_id, headers=updateHeaders, json=updateBody)
-    print(response.text)
+    #print(response.text)
     if not response.ok:
         __checkResponse(response)
     else:

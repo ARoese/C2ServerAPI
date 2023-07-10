@@ -1,4 +1,4 @@
-from C2ServerAPI.guiServer import Chivalry
+from src.guiServer import Chivalry
 from time import sleep
 
 game = Chivalry() #attach to the game window
