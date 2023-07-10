@@ -14,8 +14,8 @@ var namespace_c2_server_a_p_i_1_1src =
     [ "serverBrowser", "namespace_c2_server_a_p_i_1_1src_1_1server_browser.html", [
       [ "getServerList", "namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#ac00eee1f7c7033c0fbdb177e0abc554c", null ],
       [ "heartbeat", "namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a318a4fa3b63f415e5221a838bcbcff43", null ],
-      [ "registerServer", "namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a1268e1cc2cf2a6f6d7264aa2bc7c7048", null ],
-      [ "updateServer", "namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#abcdf1b4346ab4f6a07eda9d3e818e5dc", null ]
+      [ "registerServer", "namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a9b19c302cb949dc12cade9965083eb12", null ],
+      [ "updateServer", "namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a5eac348104cdcf92873c17755e438a69", null ]
     ] ],
     [ "serverRegister", "namespace_c2_server_a_p_i_1_1src_1_1server_register.html", "namespace_c2_server_a_p_i_1_1src_1_1server_register" ]
 ];

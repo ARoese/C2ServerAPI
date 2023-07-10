@@ -1,13 +1,9 @@
 var searchData=
 [
-  ['sendkeypress_0',['sendKeyPress',['../namespace_c2_server_a_p_i_1_1src_1_1input_lib.html#a3315052e509b5ecb31529d6efc022e7a',1,'C2ServerAPI::src::inputLib']]],
-  ['sendletterpress_1',['sendLetterPress',['../namespace_c2_server_a_p_i_1_1src_1_1input_lib.html#a5adc31914e871140759aeb09496869dc',1,'C2ServerAPI::src::inputLib']]],
-  ['sendshiftedkeypress_2',['sendShiftedKeyPress',['../namespace_c2_server_a_p_i_1_1src_1_1input_lib.html#ace6476a67dac4fe3682889737440ed63',1,'C2ServerAPI::src::inputLib']]],
-  ['serverbrowser_2epy_3',['serverBrowser.py',['../server_browser_8py.html',1,'']]],
-  ['serverlistaddress_4',['serverListAddress',['../class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#ac16de23de613b25d1f4fd9da4e70a77d',1,'C2ServerAPI::src::serverRegister::Registration']]],
-  ['servername_5',['serverName',['../class_c2_server_a_p_i_1_1src_1_1a2s_1_1_a2_s___i_n_f_o.html#aa316131c60a8a8666f5d4b5d62d8be40',1,'C2ServerAPI::src::a2s::A2S_INFO']]],
-  ['serverregister_2epy_6',['serverRegister.py',['../server_register_8py.html',1,'']]],
-  ['servertype_7',['serverType',['../class_c2_server_a_p_i_1_1src_1_1a2s_1_1_a2_s___i_n_f_o.html#a107af9a54d09774f4f89f260422573dc',1,'C2ServerAPI::src::a2s::A2S_INFO']]],
-  ['steamgameid_8',['steamGameId',['../class_c2_server_a_p_i_1_1src_1_1a2s_1_1_a2_s___i_n_f_o.html#a50e6ad1378b3f408392095332a5b8676',1,'C2ServerAPI::src::a2s::A2S_INFO']]],
-  ['stopheartbeat_9',['stopHeartbeat',['../class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a58900df00bc88b21945421f787cafeaf',1,'C2ServerAPI::src::serverRegister::Registration']]]
+  ['readme_0',['README',['../md__r_e_a_d_m_e.html',1,'']]],
+  ['readme_2emd_1',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
+  ['refreshby_2',['refreshBy',['../class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a7173e21feda4edbc8960dee9d3c1183c',1,'C2ServerAPI::src::serverRegister::Registration']]],
+  ['registerserver_3',['registerServer',['../namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a9b19c302cb949dc12cade9965083eb12',1,'C2ServerAPI::src::serverBrowser']]],
+  ['registration_4',['Registration',['../class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html',1,'C2ServerAPI::src::serverRegister']]],
+  ['remote_5',['REMOTE',['../namespace_c2_server_a_p_i_1_1test_reg.html#ab0db5cc403e285e0232840e73d54102e',1,'C2ServerAPI::testReg']]]
 ];

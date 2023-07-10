@@ -105,12 +105,12 @@ $(document).ready(function(){initNavTree('namespace_c2_server_a_p_i_1_1src_1_1se
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a1268e1cc2cf2a6f6d7264aa2bc7c7048"><td class="memItemLeft" align="right" valign="top">Tuple[str, float]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a1268e1cc2cf2a6f6d7264aa2bc7c7048">registerServer</a> (AnyStr address, int port=7777, AnyStr name=&quot;Chivalry 2 Server&quot;, AnyStr description=&quot;No description&quot;, AnyStr current_map=&quot;Unknown&quot;, int player_count=-1, int max_players=-1, mods=[])</td></tr>
-<tr class="memdesc:a1268e1cc2cf2a6f6d7264aa2bc7c7048"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a chivalry server with a server browser backend.  <br /></td></tr>
-<tr class="separator:a1268e1cc2cf2a6f6d7264aa2bc7c7048"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcdf1b4346ab4f6a07eda9d3e818e5dc"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#abcdf1b4346ab4f6a07eda9d3e818e5dc">updateServer</a> (AnyStr address, str unique_id, str key, int port, int player_count, int max_players, str current_map)</td></tr>
-<tr class="memdesc:abcdf1b4346ab4f6a07eda9d3e818e5dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a heartbeat to the server browser backend.  <br /></td></tr>
-<tr class="separator:abcdf1b4346ab4f6a07eda9d3e818e5dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b19c302cb949dc12cade9965083eb12"><td class="memItemLeft" align="right" valign="top">Tuple[str, float]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a9b19c302cb949dc12cade9965083eb12">registerServer</a> (AnyStr address, int gamePort=7777, int pingPort=3075, int queryPort=7071, AnyStr name=&quot;Chivalry 2 Server&quot;, AnyStr description=&quot;No description&quot;, AnyStr current_map=&quot;Unknown&quot;, int player_count=-1, int max_players=-1, mods=[])</td></tr>
+<tr class="memdesc:a9b19c302cb949dc12cade9965083eb12"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a chivalry server with a server browser backend.  <br /></td></tr>
+<tr class="separator:a9b19c302cb949dc12cade9965083eb12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5eac348104cdcf92873c17755e438a69"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a5eac348104cdcf92873c17755e438a69">updateServer</a> (AnyStr address, str unique_id, str key, int player_count, int max_players, str current_map)</td></tr>
+<tr class="memdesc:a5eac348104cdcf92873c17755e438a69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a heartbeat to the server browser backend.  <br /></td></tr>
+<tr class="separator:a5eac348104cdcf92873c17755e438a69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a318a4fa3b63f415e5221a838bcbcff43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespace_c2_server_a_p_i_1_1src_1_1server_browser.html#a318a4fa3b63f415e5221a838bcbcff43">heartbeat</a> (AnyStr address, str unique_id, str key, int port)</td></tr>
 <tr class="memdesc:a318a4fa3b63f415e5221a838bcbcff43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Send a heartbeat to the server browser backend.  <br /></td></tr>
 <tr class="separator:a318a4fa3b63f415e5221a838bcbcff43"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -182,13 +182,13 @@ Functions</h2></td></tr>
 
 <p>Send a heartbeat to the server browser backend. </p>
 <p>Heatbeats must be sent periodically</p>
-<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param port: The port on which the chivalry server is listening on.</p>
+<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>.</p>
 <p>:returns: The time by which the next heartbeat must be sent, or else this registration times out :raises: RuntimeError when a non-ok http status is received </p>
 
 </div>
 </div>
-<a id="a1268e1cc2cf2a6f6d7264aa2bc7c7048" name="a1268e1cc2cf2a6f6d7264aa2bc7c7048"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1268e1cc2cf2a6f6d7264aa2bc7c7048">&#9670;&#160;</a></span>registerServer()</h2>
+<a id="a9b19c302cb949dc12cade9965083eb12" name="a9b19c302cb949dc12cade9965083eb12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b19c302cb949dc12cade9965083eb12">&#9670;&#160;</a></span>registerServer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,7 +203,19 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">int &#160;</td>
-          <td class="paramname"><em>port</em> = <code>7777</code>, </td>
+          <td class="paramname"><em>gamePort</em> = <code>7777</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &#160;</td>
+          <td class="paramname"><em>pingPort</em> = <code>3075</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int &#160;</td>
+          <td class="paramname"><em>queryPort</em> = <code>7071</code>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -250,13 +262,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Register a chivalry server with a server browser backend. </p>
-<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param port: The port on which the chivalry server is listening on. :param name: The name for this server that will be listed in the browser :param description: A description of the server that will be listed in the browser :param current_map: The current map of the chivalry server. This can be updated later. :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once :param mods: TODO: UNIMPLEMENTED A list of mods that this server is running, that clients should download and install before joining.</p>
+<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param gamePort: The UDP port on which the chivalry server is being hosted on. :param pingPort: The UDP port (usually in the range 30xx) which the chivalry server responds to pings on :param queryPort: The UDP port which responds to A2S, (A steam protocol) usually 7071 :param name: The name for this server that will be listed in the browser :param description: A description of the server that will be listed in the browser :param current_map: The current map of the chivalry server. This can be updated later. :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once :param mods: TODO: UNIMPLEMENTED A list of mods that this server is running, that clients should download and install before joining.</p>
 <p>:returns: (str, str, float) The unique ID of the registered server, The key required to update this server registration in the future, and The time by which the next heartbeat must be sent, or else this registration times out :raises: RuntimeError when a non-ok http status is received </p>
 
 </div>
 </div>
-<a id="abcdf1b4346ab4f6a07eda9d3e818e5dc" name="abcdf1b4346ab4f6a07eda9d3e818e5dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcdf1b4346ab4f6a07eda9d3e818e5dc">&#9670;&#160;</a></span>updateServer()</h2>
+<a id="a5eac348104cdcf92873c17755e438a69" name="a5eac348104cdcf92873c17755e438a69"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5eac348104cdcf92873c17755e438a69">&#9670;&#160;</a></span>updateServer()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -278,12 +290,6 @@ Functions</h2></td></tr>
           <td></td>
           <td class="paramtype">str&#160;</td>
           <td class="paramname"><em>key</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>port</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -313,7 +319,7 @@ Functions</h2></td></tr>
 
 <p>Send a heartbeat to the server browser backend. </p>
 <p>Heatbeats must be sent periodically</p>
-<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param unique_id: The unique id for the server issued by the backend through the registerServer() function :param port: The port on which the chivalry server is listening on. :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once :param current_map: The current map of the chivalry server. This can be updated later.</p>
+<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param unique_id: The unique id for the server issued by the backend through the registerServer() function :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once :param current_map: The current map of the chivalry server. This can be updated later.</p>
 <p>:returns: The time by which the next heartbeat must be sent, or else this registration times out :raises: RuntimeError when a non-ok http status is received </p>
 
 </div>
