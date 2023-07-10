@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['inputlib_2epy_0',['inputLib.py',['../input_lib_8py.html',1,'']]],
-  ['isgameend_1',['isGameEnd',['../class_c2_server_a_p_i_1_1src_1_1gui_server_1_1_chivalry.html#a5b177d0335b1f16b37dd84c4d12ebe37',1,'C2ServerAPI::src::guiServer::Chivalry']]],
-  ['ismainmenu_2',['isMainMenu',['../class_c2_server_a_p_i_1_1src_1_1gui_server_1_1_chivalry.html#a024f2a1fa45d20bd78f35c02a49490c8',1,'C2ServerAPI::src::guiServer::Chivalry']]]
+  ['edf_0',['edf',['../class_c2_server_a_p_i_1_1src_1_1a2s_1_1_a2_s___i_n_f_o.html#a046b15f74214d921784a4d9cbf83163c',1,'C2ServerAPI::src::a2s::A2S_INFO']]],
+  ['environment_1',['environment',['../class_c2_server_a_p_i_1_1src_1_1a2s_1_1_a2_s___i_n_f_o.html#a6ec1bf89172e7003bdd8ab98076feef6',1,'C2ServerAPI::src::a2s::A2S_INFO']]]
 ];

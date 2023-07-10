@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['serverbrowser_2epy_0',['serverBrowser.py',['../server_browser_8py.html',1,'']]],
-  ['serverregister_2epy_1',['serverRegister.py',['../server_register_8py.html',1,'']]]
+  ['readme_2emd_0',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]]
 ];

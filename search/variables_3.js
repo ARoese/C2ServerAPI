@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['refreshby_0',['refreshBy',['../class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a7173e21feda4edbc8960dee9d3c1183c',1,'C2ServerAPI::src::serverRegister::Registration']]],
-  ['remote_1',['REMOTE',['../namespace_c2_server_a_p_i_1_1test_reg.html#ab0db5cc403e285e0232840e73d54102e',1,'C2ServerAPI::testReg']]]
+  ['game_0',['Game',['../class_c2_server_a_p_i_1_1src_1_1a2s_1_1_a2_s___i_n_f_o.html#a1bbbc0c161c39efdca2a5f44c2c4e9a5',1,'C2ServerAPI::src::a2s::A2S_INFO']]],
+  ['game_1',['game',['../namespace_c2_server_a_p_i_1_1_c2_server_a_p_i_example.html#af440efdb260f403bfb5e530a270eaa6d',1,'C2ServerAPI::C2ServerAPIExample']]],
+  ['gameinfo_2',['gameInfo',['../namespace_c2_server_a_p_i_1_1test_reg.html#abbd2e1cf7cd3ad3cc2ae22eba93dbb06',1,'C2ServerAPI::testReg']]]
 ];
