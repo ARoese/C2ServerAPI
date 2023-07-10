@@ -14,14 +14,16 @@ class Registration:
         server list specified in the constructor. Heartbeat signals are also sent periodically at
         the interval(s) requested by the server.
     """
-    def __init__(self, serverListAddress, port: int = 7777, name: AnyStr = "Chivalry 2 Server", 
+    def __init__(self, serverListAddress, gamePort: int = 7777, pingPort: int = 3075, queryPort: int = 7071, name: AnyStr = "Chivalry 2 Server", 
                    description: AnyStr = "No description", current_map: AnyStr = "Unknown", 
                    player_count: int = -1, max_players: int = -1, mods = []):
         """Constructor for the registration class
 
         :param serverListAddress: The URL of the serverlist to register with. This should be in the form 
             `http://0.0.0.0:8080`.
-        :param port: The port on which the chivalry server is being hosted on.
+        :param gamePort: The UDP port on which the chivalry server is being hosted on.
+        :param pingPort: The UDP port (usually in the range 30xx) which the chivalry server responds to pings on
+        :param queryPort: The UDP port which responds to A2S, (A steam protocol) usually 7071
         :param name: The name for this server that will be listed in the browser
         :param description: A description of the server that will be listed in the browser
         :param current_map: The current map of the chivalry server. This can be updated later.
@@ -37,21 +39,24 @@ class Registration:
         self.__max_players=max_players
         self.serverListAddress=serverListAddress
         self.__stopHeartBeat = Condition()
-        self.port = port
+        self.port = gamePort
+        self.queryPort = queryPort
+        self.pingPort = pingPort
         #acquire the heartbeat mutex immediately, so that the heartBeat thread can never obtain it
         #until we release it in __stopHeartbeat()
         self.__stopHeartBeat.acquire()
         #register with the serverList
         self.__heartBeatThread = None
-        self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(self.serverListAddress, port, name, 
-                   description, self.__current_map, self.__player_count, self.__max_players, mods)
+        self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(self.serverListAddress, 
+                    self.port, self.pingPort, self.queryPort, name, 
+                    description, self.__current_map, self.__player_count, self.__max_players, mods)
         #start the heartbeat thread
         self.__heartBeatThread = Thread(target=self.__heartBeatThreadTarget)
         self.__heartBeatThread.start()
 
     def __pushUpdateToBackend(self):
         serverBrowser.updateServer(self.serverListAddress, 
-                self.unique_id, self.__key, self.port, self.__player_count, 
+                self.unique_id, self.__key, self.__player_count, 
                 self.__max_players, self.__current_map)
 
     def updatePlayercount(self, player_count):

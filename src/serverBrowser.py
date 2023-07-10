@@ -20,14 +20,16 @@ def __checkResponse(response : requests.Response):
     else:
         raise RuntimeError("Server error: " + str(response.status_code))
 
-def registerServer(address: AnyStr, port: int = 7777, name: AnyStr = "Chivalry 2 Server", 
+def registerServer(address: AnyStr, gamePort: int = 7777, pingPort: int = 3075, queryPort: int = 7071, name: AnyStr = "Chivalry 2 Server", 
                    description: AnyStr = "No description", current_map: AnyStr = "Unknown", 
                    player_count: int = -1, max_players: int = -1, mods = []) -> Tuple[str,float]:
     """Register a chivalry server with a server browser backend.
 
     :param address: The URL of the serverlist to register with. This should be in the form 
         `http://0.0.0.0:8080`.
-    :param port: The port on which the chivalry server is listening on.
+    :param gamePort: The UDP port on which the chivalry server is being hosted on.
+    :param pingPort: The UDP port (usually in the range 30xx) which the chivalry server responds to pings on
+    :param queryPort: The UDP port which responds to A2S, (A steam protocol) usually 7071
     :param name: The name for this server that will be listed in the browser
     :param description: A description of the server that will be listed in the browser
     :param current_map: The current map of the chivalry server. This can be updated later.
@@ -42,7 +44,11 @@ def registerServer(address: AnyStr, port: int = 7777, name: AnyStr = "Chivalry 2
     :raises: RuntimeError when a non-ok http status is received
     """
     serverObj = {
-        "port": port,
+        "ports": {
+            "game": gamePort,
+            "ping": pingPort,
+            "a2s": queryPort
+        },
         "name": name,
         "description": description,
         "current_map": current_map,
@@ -58,7 +64,7 @@ def registerServer(address: AnyStr, port: int = 7777, name: AnyStr = "Chivalry 2
         jsResponse = response.json()
         return jsResponse['server']['unique_id'], jsResponse['key'], float(jsResponse['refresh_before'])
     
-def updateServer(address : AnyStr, unique_id : str, key : str, port : int, 
+def updateServer(address : AnyStr, unique_id : str, key : str, 
                  player_count : int, max_players : int, current_map : str) -> None:
     """Send a heartbeat to the server browser backend
     
@@ -67,7 +73,6 @@ def updateServer(address : AnyStr, unique_id : str, key : str, port : int,
     :param address: The URL of the serverlist to register with. This should be in the form 
         `http://0.0.0.0:8080`.
     :param unique_id: The unique id for the server issued by the backend through the registerServer() function
-    :param port: The port on which the chivalry server is listening on.
     :param player_count: The number of players currently in the server
     :param max_players: The max number of players that can be in this server at once
     :param current_map: The current map of the chivalry server. This can be updated later.
@@ -76,7 +81,6 @@ def updateServer(address : AnyStr, unique_id : str, key : str, port : int,
     :raises: RuntimeError when a non-ok http status is received
     """
     updateBody = {
-        "port": port,
         "player_count": player_count,
         "max_players": max_players,
         "current_map": current_map
@@ -100,19 +104,15 @@ def heartbeat(address: AnyStr, unique_id : str, key : str, port : int):
 
     :param address: The URL of the serverlist to register with. This should be in the form 
         `http://0.0.0.0:8080`.
-    :param port: The port on which the chivalry server is listening on.
 
     :returns: The time by which the next heartbeat must be sent, or else this registration times out
     :raises: RuntimeError when a non-ok http status is received
     """
-    heartbeatObj = {
-        "port": port
-    }
 
     heartbeatHeaders = {
         "x-chiv2-server-browser-key": key
     }
-    response = requests.post(address+"/api/v1/servers/" + unique_id + "/heartbeat", headers=heartbeatHeaders, json=heartbeatObj)
+    response = requests.post(address+"/api/v1/servers/" + unique_id + "/heartbeat", headers=heartbeatHeaders)
     #print(response.text)
     if not response.ok:
         __checkResponse(response)
