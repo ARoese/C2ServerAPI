@@ -232,7 +232,21 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Constructor for the registration class. </p>
-<p>:param serverListAddress: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param gamePort: The UDP port on which the chivalry server is being hosted on. :param pingPort: The UDP port (usually in the range 30xx) which the chivalry server responds to pings on :param queryPort: The UDP port which responds to A2S, (A steam protocol) usually 7071 :param name: The name for this server that will be listed in the browser :param description: A description of the server that will be listed in the browser :param current_map: The current map of the chivalry server. This can be updated later. :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once :param mods: TODO: UNIMPLEMENTED A list of mods that this server is running, that clients should download and install before joining. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">serverListAddress</td><td>The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. </td></tr>
+    <tr><td class="paramname">gamePort</td><td>The UDP port on which the chivalry server is being hosted on. </td></tr>
+    <tr><td class="paramname">pingPort</td><td>The UDP port (usually in the range 30xx) which the chivalry server responds to pings on </td></tr>
+    <tr><td class="paramname">queryPort</td><td>The UDP port which responds to A2S, (A steam protocol) usually 7071 </td></tr>
+    <tr><td class="paramname">name</td><td>The name for this server that will be listed in the browser </td></tr>
+    <tr><td class="paramname">description</td><td>A description of the server that will be listed in the browser </td></tr>
+    <tr><td class="paramname">current_map</td><td>The current map of the chivalry server. This can be updated later. </td></tr>
+    <tr><td class="paramname">player_count</td><td>The number of players currently in the server </td></tr>
+    <tr><td class="paramname">max_players</td><td>The max number of players that can be in this server at once </td></tr>
+    <tr><td class="paramname">mods</td><td>TODO: UNIMPLEMENTED A list of mods that this server is running, that clients should download and install before joining. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -362,7 +376,12 @@ Public Attributes</h2></td></tr>
 
 <p>Update the current map the server is running. </p>
 <p>This function will automatically push this update to the serverlist</p>
-<p>:param current_map: The new map </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">current_map</td><td>The new map </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -394,7 +413,12 @@ Public Attributes</h2></td></tr>
 
 <p>Update the max allowed number of players on the server. </p>
 <p>This function will automatically push this update to the serverlist</p>
-<p>:param max_players: The new max number of players </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">max_players</td><td>The new max number of players </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -426,7 +450,12 @@ Public Attributes</h2></td></tr>
 
 <p>Update the number of players currently playing on the server. </p>
 <p>This function will automatically push this update to the serverlist</p>
-<p>:param player_count: The new player count </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">player_count</td><td>The new player count </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

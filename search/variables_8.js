@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['queryport_0',['queryPort',['../class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a9d79d72faf4a2673f755426273071351',1,'C2ServerAPI::src::serverRegister::Registration']]]
+  ['name_0',['name',['../namespace_c2_server_a_p_i_1_1test_reg.html#ac4ee4996f5ad8568313263e83321ca00',1,'C2ServerAPI::testReg']]]
 ];

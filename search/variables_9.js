@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['refreshby_0',['refreshBy',['../class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a7173e21feda4edbc8960dee9d3c1183c',1,'C2ServerAPI::src::serverRegister::Registration']]],
-  ['remote_1',['REMOTE',['../namespace_c2_server_a_p_i_1_1test_reg.html#ab0db5cc403e285e0232840e73d54102e',1,'C2ServerAPI::testReg']]]
+  ['pingport_0',['pingPort',['../class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#a60a0bc7164d8398e37f5066e38380500',1,'C2ServerAPI.src.serverRegister.Registration.pingPort'],['../namespace_c2_server_a_p_i_1_1test_reg.html#a7d1a1de61ed98d4fc155ddc3b19b307e',1,'C2ServerAPI.testReg.pingPort']]],
+  ['playercount_1',['playerCount',['../class_c2_server_a_p_i_1_1src_1_1a2s_1_1_a2_s___i_n_f_o.html#a6cb7280892d1f6b27cd52271ece10792',1,'C2ServerAPI::src::a2s::A2S_INFO']]],
+  ['port_2',['port',['../class_c2_server_a_p_i_1_1src_1_1server_register_1_1_registration.html#af7cc8b300f2f773bd4bd3bd1978fd9ed',1,'C2ServerAPI::src::serverRegister::Registration']]],
+  ['protocolversion_3',['protocolVersion',['../class_c2_server_a_p_i_1_1src_1_1a2s_1_1_a2_s___i_n_f_o.html#ab11159b13a020181aea4e1fed3dab949',1,'C2ServerAPI::src::a2s::A2S_INFO']]]
 ];

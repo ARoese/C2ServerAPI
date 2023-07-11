@@ -144,7 +144,13 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Get server information. </p>
-<p>:param address: address of the server to send the request to in the form ("127.0.0.1", 7071)/(address,port) :returns: A2S_INFO object containing received data </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>address of the server to send the request to in the form ("127.0.0.1", 7071)/(address,port) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A2S_INFO object containing received data </dd></dl>
 
 </div>
 </div>
@@ -166,7 +172,13 @@ Functions</h2></td></tr>
 
 <p>Ping the server and return how long it takes for it to respond, in seconds. </p>
 <p>This function is NOT an ICMP ping. This is a UDP ping via the A2S protocol, which is a more reliable way of determining the actual latency of the game server.</p>
-<p>:param address: address of the server to send the request to in the form ("127.0.0.1", 7071)/(address,port) :returns: How long it took the server to respond to the ping in ms </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>address of the server to send the request to in the form ("127.0.0.1", 7071)/(address,port) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>How long it took the server to respond to the ping in ms </dd></dl>
 
 </div>
 </div>

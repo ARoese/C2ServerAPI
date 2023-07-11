@@ -136,9 +136,19 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Retreive a list of all Chivalry servers registered with the backend. </p>
-<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>.</p>
-<p>:returns: A string-representation of a JSON array of all listed servers</p>
-<p>:raises: RuntimeError when a non-ok http status is received </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A string-representation of a JSON array of all listed servers</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RuntimeError</td><td>when a non-ok http status is received </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -182,8 +192,19 @@ Functions</h2></td></tr>
 
 <p>Send a heartbeat to the server browser backend. </p>
 <p>Heatbeats must be sent periodically</p>
-<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>.</p>
-<p>:returns: The time by which the next heartbeat must be sent, or else this registration times out :raises: RuntimeError when a non-ok http status is received </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The time by which the next heartbeat must be sent, or else this registration times out </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RuntimeError</td><td>when a non-ok http status is received </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -262,8 +283,28 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Register a chivalry server with a server browser backend. </p>
-<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param gamePort: The UDP port on which the chivalry server is being hosted on. :param pingPort: The UDP port (usually in the range 30xx) which the chivalry server responds to pings on :param queryPort: The UDP port which responds to A2S, (A steam protocol) usually 7071 :param name: The name for this server that will be listed in the browser :param description: A description of the server that will be listed in the browser :param current_map: The current map of the chivalry server. This can be updated later. :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once :param mods: TODO: UNIMPLEMENTED A list of mods that this server is running, that clients should download and install before joining.</p>
-<p>:returns: (str, str, float) The unique ID of the registered server, The key required to update this server registration in the future, and The time by which the next heartbeat must be sent, or else this registration times out :raises: RuntimeError when a non-ok http status is received </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. </td></tr>
+    <tr><td class="paramname">gamePort</td><td>The UDP port on which the chivalry server is being hosted on. </td></tr>
+    <tr><td class="paramname">pingPort</td><td>The UDP port (usually in the range 30xx) which the chivalry server responds to pings on </td></tr>
+    <tr><td class="paramname">queryPort</td><td>The UDP port which responds to A2S, (A steam protocol) usually 7071 </td></tr>
+    <tr><td class="paramname">name</td><td>The name for this server that will be listed in the browser </td></tr>
+    <tr><td class="paramname">description</td><td>A description of the server that will be listed in the browser </td></tr>
+    <tr><td class="paramname">current_map</td><td>The current map of the chivalry server. This can be updated later. </td></tr>
+    <tr><td class="paramname">player_count</td><td>The number of players currently in the server </td></tr>
+    <tr><td class="paramname">max_players</td><td>The max number of players that can be in this server at once </td></tr>
+    <tr><td class="paramname">mods</td><td>TODO: UNIMPLEMENTED A list of mods that this server is running, that clients should download and install before joining.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>(str, str, float) The unique ID of the registered server, The key required to update this server registration in the future, and The time by which the next heartbeat must be sent, or else this registration times out </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RuntimeError</td><td>when a non-ok http status is received </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -319,8 +360,23 @@ Functions</h2></td></tr>
 
 <p>Send a heartbeat to the server browser backend. </p>
 <p>Heatbeats must be sent periodically</p>
-<p>:param address: The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. :param unique_id: The unique id for the server issued by the backend through the registerServer() function :param player_count: The number of players currently in the server :param max_players: The max number of players that can be in this server at once :param current_map: The current map of the chivalry server. This can be updated later.</p>
-<p>:returns: The time by which the next heartbeat must be sent, or else this registration times out :raises: RuntimeError when a non-ok http status is received </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">address</td><td>The URL of the serverlist to register with. This should be in the form <code><a href="http://0.0.0.0:8080">http://0.0.0.0:8080</a></code>. </td></tr>
+    <tr><td class="paramname">unique_id</td><td>The unique id for the server issued by the backend through the registerServer() function </td></tr>
+    <tr><td class="paramname">player_count</td><td>The number of players currently in the server </td></tr>
+    <tr><td class="paramname">max_players</td><td>The max number of players that can be in this server at once </td></tr>
+    <tr><td class="paramname">current_map</td><td>The current map of the chivalry server. This can be updated later.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The time by which the next heartbeat must be sent, or else this registration times out </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">RuntimeError</td><td>when a non-ok http status is received </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

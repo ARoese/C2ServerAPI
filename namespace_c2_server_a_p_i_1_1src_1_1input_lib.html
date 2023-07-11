@@ -155,7 +155,12 @@ Variables</h2></td></tr>
 
 <p>Send the events corresponding to a quick press and release of a given keycode. </p>
 <p>See <a href="https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes">https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes</a> for more information on keycodes</p>
-<p>:param code: an int representing the keycode to press and release </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>an int representing the keycode to press and release </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -178,7 +183,12 @@ Variables</h2></td></tr>
 <p>Send the keypresses required to type a specific letter or character. </p>
 <p>The shift key will be pressed as needed.</p>
 <p>NOTE: not all characters are implemented. Only alphanumeric and -_+=,.!? are implemented.</p>
-<p>:param letter: The letter that should be typed. (As if they user entered it on the keyboard) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">letter</td><td>The letter that should be typed. (As if they user entered it on the keyboard) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -200,7 +210,12 @@ Variables</h2></td></tr>
 
 <p>Send the events corresponding to a quick press and release of a given keycode with the shift key pressed. </p>
 <p>See <a href="https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes">https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes</a> for more information on keycodes</p>
-<p>:param code: an int representing the keycode to press and release </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">code</td><td>an int representing the keycode to press and release </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -263,7 +278,12 @@ Variables</h2></td></tr>
 <p>Send keypresses required to type out the contents of the given string. </p>
 <p>Newlines are allowed. The enter key will be pressed for each newline character, and will always be pressed at least once per function call (I.E. It will be pressed even if the string contains no newline characters)</p>
 <p>The contents of this string follow the same restrictions as those provided by the sendLetterPress() function.</p>
-<p>:param string: the string whose contents should be converted to keypresses (as if typed by the user on the keyboard) </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">string</td><td>the string whose contents should be converted to keypresses (as if typed by the user on the keyboard) </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

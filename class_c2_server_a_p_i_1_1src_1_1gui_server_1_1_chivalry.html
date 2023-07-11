@@ -242,7 +242,12 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Write a message to the chivalry command console. </p>
-<p>:param message: A string, the command to enter into the chivalry console. This may contain multiple lines, one command on each line. They will be entered one after another with no delay. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>A string, the command to enter into the chivalry console. This may contain multiple lines, one command on each line. They will be entered one after another with no delay. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -401,7 +406,14 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the output of a command that was recently run. </p>
 <p>PRECONDITION: the extended view of the console is open in chivalry</p>
-<p>:param command: A string containing the command that was run, exactly as it was entered :param lines: How many lines of it's output to return. (this depends on the specific command) :returns: The output of the run command as a string, or None </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">command</td><td>A string containing the command that was run, exactly as it was entered </td></tr>
+    <tr><td class="paramname">lines</td><td>How many lines of it's output to return. (this depends on the specific command) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The output of the run command as a string, or None </dd></dl>
 
 </div>
 </div>
