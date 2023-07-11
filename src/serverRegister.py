@@ -19,17 +19,17 @@ class Registration:
                    player_count: int = -1, max_players: int = -1, mods = []):
         """Constructor for the registration class
 
-        :param serverListAddress: The URL of the serverlist to register with. This should be in the form 
+        @param serverListAddress: The URL of the serverlist to register with. This should be in the form 
             `http://0.0.0.0:8080`.
-        :param gamePort: The UDP port on which the chivalry server is being hosted on.
-        :param pingPort: The UDP port (usually in the range 30xx) which the chivalry server responds to pings on
-        :param queryPort: The UDP port which responds to A2S, (A steam protocol) usually 7071
-        :param name: The name for this server that will be listed in the browser
-        :param description: A description of the server that will be listed in the browser
-        :param current_map: The current map of the chivalry server. This can be updated later.
-        :param player_count: The number of players currently in the server
-        :param max_players: The max number of players that can be in this server at once
-        :param mods: TODO: UNIMPLEMENTED A list of mods that this server is running, that clients
+        @param gamePort: The UDP port on which the chivalry server is being hosted on.
+        @param pingPort: The UDP port (usually in the range 30xx) which the chivalry server responds to pings on
+        @param queryPort: The UDP port which responds to A2S, (A steam protocol) usually 7071
+        @param name: The name for this server that will be listed in the browser
+        @param description: A description of the server that will be listed in the browser
+        @param current_map: The current map of the chivalry server. This can be updated later.
+        @param player_count: The number of players currently in the server
+        @param max_players: The max number of players that can be in this server at once
+        @param mods: TODO: UNIMPLEMENTED A list of mods that this server is running, that clients
             should download and install before joining.
         """
         #setup the mutex for this object
@@ -64,7 +64,7 @@ class Registration:
 
         This function will automatically push this update to the serverlist
 
-        :param player_count: The new player count
+        @param player_count: The new player count
         """
         with self.__mutex:
             self.__player_count = player_count
@@ -75,7 +75,7 @@ class Registration:
         
         This function will automatically push this update to the serverlist
 
-        :param max_players: The new max number of players
+        @param max_players: The new max number of players
         """
         with self.__mutex:
             self.__max_players = max_players
@@ -86,7 +86,7 @@ class Registration:
         
         This function will automatically push this update to the serverlist
 
-        :param current_map: The new map
+        @param current_map: The new map
         """
         with self.__mutex:
             self.__current_map = current_map

@@ -194,9 +194,9 @@ class Chivalry:
 
         PRECONDITION: the extended view of the console is open in chivalry
 
-        :param command: A string containing the command that was run, exactly as it was entered
-        :param lines: How many lines of it's output to return. (this depends on the specific command)
-        :returns: The output of the run command as a string, or None
+        @param command: A string containing the command that was run, exactly as it was entered
+        @param lines: How many lines of it's output to return. (this depends on the specific command)
+        @returns The output of the run command as a string, or None
         """
         console = self.getConsoleOutput()
         #get a view of the console containing only command run lines and no spaces what-so-ever
@@ -225,7 +225,7 @@ class Chivalry:
     def consoleSend(self, message):
         """Write a message to the chivalry command console 
         
-        :param message: A string, the command to enter into the chivalry console. This may contain
+        @param message: A string, the command to enter into the chivalry console. This may contain
             multiple lines, one command on each line. They will be entered one after another with no delay.
         """
         hwnd = self.getChivalryWindowHandle()

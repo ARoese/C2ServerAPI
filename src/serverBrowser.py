@@ -25,23 +25,23 @@ def registerServer(address: AnyStr, gamePort: int = 7777, pingPort: int = 3075, 
                    player_count: int = -1, max_players: int = -1, mods = []) -> Tuple[str,float]:
     """Register a chivalry server with a server browser backend.
 
-    :param address: The URL of the serverlist to register with. This should be in the form 
+    @param address: The URL of the serverlist to register with. This should be in the form 
         `http://0.0.0.0:8080`.
-    :param gamePort: The UDP port on which the chivalry server is being hosted on.
-    :param pingPort: The UDP port (usually in the range 30xx) which the chivalry server responds to pings on
-    :param queryPort: The UDP port which responds to A2S, (A steam protocol) usually 7071
-    :param name: The name for this server that will be listed in the browser
-    :param description: A description of the server that will be listed in the browser
-    :param current_map: The current map of the chivalry server. This can be updated later.
-    :param player_count: The number of players currently in the server
-    :param max_players: The max number of players that can be in this server at once
-    :param mods: TODO: UNIMPLEMENTED A list of mods that this server is running, that clients
+    @param gamePort: The UDP port on which the chivalry server is being hosted on.
+    @param pingPort: The UDP port (usually in the range 30xx) which the chivalry server responds to pings on
+    @param queryPort: The UDP port which responds to A2S, (A steam protocol) usually 7071
+    @param name: The name for this server that will be listed in the browser
+    @param description: A description of the server that will be listed in the browser
+    @param current_map: The current map of the chivalry server. This can be updated later.
+    @param player_count: The number of players currently in the server
+    @param max_players: The max number of players that can be in this server at once
+    @param mods: TODO: UNIMPLEMENTED A list of mods that this server is running, that clients
         should download and install before joining.
 
-    :returns: (str, str, float) The unique ID of the registered server,
+    @returns (str, str, float) The unique ID of the registered server,
         The key required to update this server registration in the future, and 
         The time by which the next heartbeat must be sent, or else this registration times out
-    :raises: RuntimeError when a non-ok http status is received
+    @exception RuntimeError when a non-ok http status is received
     """
     serverObj = {
         "ports": {
@@ -70,15 +70,15 @@ def updateServer(address : AnyStr, unique_id : str, key : str,
     
     Heatbeats must be sent periodically
 
-    :param address: The URL of the serverlist to register with. This should be in the form 
+    @param address: The URL of the serverlist to register with. This should be in the form 
         `http://0.0.0.0:8080`.
-    :param unique_id: The unique id for the server issued by the backend through the registerServer() function
-    :param player_count: The number of players currently in the server
-    :param max_players: The max number of players that can be in this server at once
-    :param current_map: The current map of the chivalry server. This can be updated later.
+    @param unique_id: The unique id for the server issued by the backend through the registerServer() function
+    @param player_count: The number of players currently in the server
+    @param max_players: The max number of players that can be in this server at once
+    @param current_map: The current map of the chivalry server. This can be updated later.
 
-    :returns: The time by which the next heartbeat must be sent, or else this registration times out
-    :raises: RuntimeError when a non-ok http status is received
+    @returns The time by which the next heartbeat must be sent, or else this registration times out
+    @exception RuntimeError when a non-ok http status is received
     """
     updateBody = {
         "player_count": player_count,
@@ -102,11 +102,11 @@ def heartbeat(address: AnyStr, unique_id : str, key : str, port : int):
     
     Heatbeats must be sent periodically
 
-    :param address: The URL of the serverlist to register with. This should be in the form 
+    @param address: The URL of the serverlist to register with. This should be in the form 
         `http://0.0.0.0:8080`.
 
-    :returns: The time by which the next heartbeat must be sent, or else this registration times out
-    :raises: RuntimeError when a non-ok http status is received
+    @returns The time by which the next heartbeat must be sent, or else this registration times out
+    @exception RuntimeError when a non-ok http status is received
     """
 
     heartbeatHeaders = {
@@ -122,12 +122,12 @@ def heartbeat(address: AnyStr, unique_id : str, key : str, port : int):
 def getServerList(address: AnyStr):
     """Retreive a list of all Chivalry servers registered with the backend
 
-    :param address: The URL of the serverlist to register with. This should be in the form 
+    @param address: The URL of the serverlist to register with. This should be in the form 
         `http://0.0.0.0:8080`.
 
-    :returns: A string-representation of a JSON array of all listed servers
+    @returns A string-representation of a JSON array of all listed servers
 
-    :raises: RuntimeError when a non-ok http status is received
+    @exception RuntimeError when a non-ok http status is received
     """
     response = requests.get(address+"/api/v1/servers")
     if not response.ok:

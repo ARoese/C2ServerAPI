@@ -11,7 +11,7 @@ def sendKeyPress(code):
         See https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
         for more information on keycodes
     
-    :param code: an int representing the keycode to press and release
+    @param code: an int representing the keycode to press and release
     """
     sleep(KEY_SLEEP_DURATION)
     win32api.keybd_event(code, 0x0, 0x0001)
@@ -24,7 +24,7 @@ def sendShiftedKeyPress(letter):
         See https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
         for more information on keycodes
     
-    :param code: an int representing the keycode to press and release
+    @param code: an int representing the keycode to press and release
     """
     sleep(KEY_SLEEP_DURATION)
     win32api.keybd_event(win32con.VK_LSHIFT, 0x0, 0x0001)
@@ -42,7 +42,7 @@ def sendLetterPress(letter):
         -_+=,.!?
         are implemented.
 
-    :param letter: The letter that should be typed. (As if they user entered it on the keyboard)
+    @param letter: The letter that should be typed. (As if they user entered it on the keyboard)
     """
     sleep(KEY_SLEEP_DURATION)
     if letter.isalpha() or letter.isnumeric() or letter == ' ':
@@ -82,7 +82,7 @@ def typeString(string):
 
     The contents of this string follow the same restrictions as those provided by the sendLetterPress() function.
 
-    :param string: the string whose contents should be converted to keypresses (as if typed by the user on the keyboard)
+    @param string: the string whose contents should be converted to keypresses (as if typed by the user on the keyboard)
     """
     for line in string.splitlines():
         for char in line:

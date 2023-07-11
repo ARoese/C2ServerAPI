@@ -20,10 +20,10 @@ from dataclasses import dataclass as __dataclass
 def __extractString(bts : bytes, offset : int) -> tuple[str,int]:
     """extract null-terminated string from bytes object
 
-    :param bts: bytes object to extract string from
-    :param offset: position of the first character in the string to exact
+    @param bts: bytes object to extract string from
+    @param offset: position of the first character in the string to exact
 
-    :returns: (string, offset of byte after null-terminator)
+    @returns (string, offset of byte after null-terminator)
     """
 
     i = offset
@@ -56,8 +56,8 @@ class A2S_INFO:
 def getInfo(address : tuple[str, int]) -> A2S_INFO:
     """Get server information
 
-    :param address: address of the server to send the request to in the form ("127.0.0.1", 7071)/(address,port)
-    :returns: A2S_INFO object containing received data
+    @param address: address of the server to send the request to in the form ("127.0.0.1", 7071)/(address,port)
+    @returns A2S_INFO object containing received data
     """
     #request __structure is defined by https://developer.valvesoftware.com/wiki/Server_queries
     request1 = bytes(
@@ -96,8 +96,8 @@ def ping(address : tuple[str, int]) -> float:
     This function is NOT an ICMP ping. This is a UDP ping via the A2S protocol, which is a more
     reliable way of determining the actual latency of the game server.
     
-    :param address: address of the server to send the request to in the form ("127.0.0.1", 7071)/(address,port)
-    :returns: How long it took the server to respond to the ping in ms
+    @param address: address of the server to send the request to in the form ("127.0.0.1", 7071)/(address,port)
+    @returns How long it took the server to respond to the ping in ms
     """
     pingrq = bytes([0xFF, 0xFF, 0xFF, 0xFF, 0x69])
 
