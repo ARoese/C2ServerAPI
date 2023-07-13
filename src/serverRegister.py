@@ -38,21 +38,14 @@ class Registration:
         self.__player_count = player_count
         self.__max_players=max_players
         self.serverListAddress=serverListAddress
-        self.__stopHeartBeat = Condition()
+        self.__stopHeartbeatCond = Condition()
         self.port = gamePort
         self.queryPort = queryPort
         self.pingPort = pingPort
-        #acquire the heartbeat mutex immediately, so that the heartBeat thread can never obtain it
-        #until we release it in __stopHeartbeat()
-        self.__stopHeartBeat.acquire()
-        #register with the serverList
+        self.name = name
+        self.description = description
+        self.mods = mods
         self.__heartBeatThread = None
-        self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(self.serverListAddress, 
-                    self.port, self.pingPort, self.queryPort, name, 
-                    description, self.__current_map, self.__player_count, self.__max_players, mods)
-        #start the heartbeat thread
-        self.__heartBeatThread = Thread(target=self.__heartBeatThreadTarget)
-        self.__heartBeatThread.start()
 
     def __pushUpdateToBackend(self):
         serverBrowser.updateServer(self.serverListAddress, 
@@ -92,20 +85,21 @@ class Registration:
             self.__current_map = current_map
             self.__pushUpdateToBackend()
 
-    def stopHeartbeat(self):
-        """Stop sending heartbeats to the server browser
+    def __startHeartbeat(self):
+        #acquire the heartbeat mutex immediately, so that the heartBeat thread can never obtain it
+        #until we release it in __stopHeartbeat()
+        self.__stopHeartbeatCond.acquire()
+        #start the heartbeat thread
+        self.__heartBeatThread = Thread(target=self.__heartBeatThreadTarget)
+        self.__heartBeatThread.start()
 
-        This effectively makes the object useless. It should not be called, but is made
-            available in case it would be impractical to explicitly destroy the object.
-            If you find yourself using this function, consider using `del`, or use the
-            `with` language construct
-        """
+    def __stopHeartbeat(self):
         #if the heartbeat thread exists
         if self.__heartBeatThread is not None and self.__heartBeatThread.is_alive():
-            self.__stopHeartBeat.release()
+            self.__stopHeartbeatCond.release()
             self.__heartBeatThread.join()
             self.__heartBeatThread = None
-            self.__stopHeartBeat.acquire()
+            self.__stopHeartbeatCond.acquire()
 
     def __doHeartBeat(self):
         if self.__heartBeatThread is None:
@@ -124,20 +118,24 @@ class Registration:
             #and only ever wakes up when it actually has something to do.
 
             #this will always sent a heartbeat 20% of the way before expiry, to give wiggle-room
-            if not self.__stopHeartBeat.acquire(timeout=0.8*(self.refreshBy - time.time())):
+            if not self.__stopHeartbeatCond.acquire(timeout=0.8*(self.refreshBy - time.time())):
                 self.__doHeartBeat()
             else:
                 print("Heartbeat thread ended")
-                self.__stopHeartBeat.release()
+                self.__stopHeartbeatCond.release()
                 return
 
     def __enter__(self):
+        #register with the serverList
+        self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(self.serverListAddress, 
+                    self.port, self.pingPort, self.queryPort, self.name, 
+                    self.description, self.__current_map, self.__player_count, self.__max_players, self.mods)
+        self.__startHeartbeat()
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.stopHeartbeat()
-        #if exc_tb is not None:
-        #    traceback.print_tb(exc_tb)
+        self.__stopHeartbeat()
+        serverBrowser.delete(self.serverListAddress, self.unique_id, self.__key)
             
     def __del__(self):
-        self.stopHeartbeat()
+        self.__stopHeartbeat()

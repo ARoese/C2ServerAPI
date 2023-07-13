@@ -19,12 +19,15 @@ with Registration(REMOTE, name="DrLong's awesome testing server",
                   description="This server may or may or may not actually be live! Join at your own peril!",
                   gamePort=54432, queryPort=25565, pingPort=1234) as re:
         print(serverBrowser.getServerList(REMOTE))
-        while True:
-            gameInfo = a2s.getInfo(("localhost",7071))
-            re.updateMap(gameInfo.mapName)
-            re.updatePlayercount(gameInfo.playerCount+gameInfo.botCount)
-            re.updateMaxPlayercount(gameInfo.maxPlayers)
-            print("Updated server information")
-            sleep(10)
+        #while True:
+        #    #gameInfo = a2s.getInfo(("localhost",7071))
+        #    #re.updateMap(gameInfo.mapName)
+        #    #re.updatePlayercount(gameInfo.playerCount+gameInfo.botCount)
+        #    #re.updateMaxPlayercount(gameInfo.maxPlayers)
+        #    print("Updated server information")
+        #    sleep(10)
+        sleep(5)
+
+serverBrowser.getServerList(REMOTE)
 
 print("Server Ended")
