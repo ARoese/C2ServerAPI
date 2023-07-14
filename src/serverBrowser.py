@@ -95,7 +95,33 @@ def updateServer(address : AnyStr, unique_id : str, key : str,
         __checkResponse(response)
     else:
         return None
-        
+    
+def delete(address: AnyStr, unique_id : str, key : str):
+    """Send a heartbeat to the server browser backend
+    
+    Heatbeats must be sent periodically
+
+    @param address: The URL of the serverlist to register with. This should be in the form 
+        `http://0.0.0.0:8080`.
+    @param unique_id: The unique id for the server issued by the backend 
+        through the registerServer() function
+    @param key: The access key required to update or modify servers. 
+        Issued by the backend through the registerServer() function
+
+    @returns true or false; if the server has been deleted on the backend
+    @exception RuntimeError when a non-ok http status is received
+    """
+    
+    updateHeaders = {
+        "x-chiv2-server-browser-key": key
+    }
+
+    response = requests.delete(address+"/api/v1/servers/"+unique_id, headers=updateHeaders, json={})
+    #print(response.text)
+    if not response.ok:
+        __checkResponse(response)
+    else:
+        return None
     
 def heartbeat(address: AnyStr, unique_id : str, key : str, port : int):
     """Send a heartbeat to the server browser backend
@@ -104,6 +130,7 @@ def heartbeat(address: AnyStr, unique_id : str, key : str, port : int):
 
     @param address: The URL of the serverlist to register with. This should be in the form 
         `http://0.0.0.0:8080`.
+    @param unique_id: The unique id for the server issued by the backend through the registerServer() function
 
     @returns The time by which the next heartbeat must be sent, or else this registration times out
     @exception RuntimeError when a non-ok http status is received
