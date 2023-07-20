@@ -7,7 +7,7 @@ def __buildError(errorCode : int, errResponse: json) -> str:
     return ("Server could not be updated: error {}.\n"
             "Message: {}\n"
             "Context: {}\n"
-            "Status: {}\n").format(errorCode, errResponse['message'], errResponse['context'], errResponse['status'])
+            "Status: {}\n").format(errorCode, errResponse.get('message'), errResponse.get('context'), errResponse.get('status'))
 
 def __checkResponse(response : requests.Response):
     try:
@@ -57,13 +57,12 @@ def registerServer(address: AnyStr, gamePort: int = 7777, pingPort: int = 3075, 
         "mods": mods
     }
     response = requests.post(address+"/api/v1/servers", json=serverObj)
-    #print(response.text)
     if not response.ok:
         __checkResponse(response)
     else:
         jsResponse = response.json()
         return jsResponse['server']['unique_id'], jsResponse['key'], float(jsResponse['refresh_before'])
-    
+        
 def updateServer(address : AnyStr, unique_id : str, key : str, 
                  player_count : int, max_players : int, current_map : str) -> None:
     """Send a heartbeat to the server browser backend
@@ -135,17 +134,21 @@ def heartbeat(address: AnyStr, unique_id : str, key : str, port : int):
     @returns The time by which the next heartbeat must be sent, or else this registration times out
     @exception RuntimeError when a non-ok http status is received
     """
-
-    heartbeatHeaders = {
-        "x-chiv2-server-browser-key": key
-    }
-    response = requests.post(address+"/api/v1/servers/" + unique_id + "/heartbeat", headers=heartbeatHeaders)
-    #print(response.text)
-    if not response.ok:
-        __checkResponse(response)
-    else:
-        return float(response.json()['refresh_before'])
-    
+    for i in range(0, 10):
+        try:
+            heartbeatHeaders = {
+                "x-chiv2-server-browser-key": key
+            }
+            response = requests.post(address+"/api/v1/servers/" + unique_id + "/heartbeat", headers=heartbeatHeaders)
+            #print(response.text)
+            if not response.ok:
+                __checkResponse(response)
+            else:
+                return float(response.json()['refresh_before'])
+        except Exception as e:
+            print(e)
+            print("Retrying heartbeat")
+        
 def getServerList(address: AnyStr):
     """Retreive a list of all Chivalry servers registered with the backend
 

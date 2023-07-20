@@ -1,6 +1,7 @@
 from src.serverRegister import Registration, serverBrowser
 from src import a2s
 from time import sleep
+import argparse
 
 import signal
 signal.signal(signal.SIGINT, signal.SIG_DFL) #so that sigint will actually kill all threads
@@ -10,24 +11,31 @@ signal.signal(signal.SIGINT, signal.SIG_DFL) #so that sigint will actually kill 
 
 ##NOTE: Also, there should be a server list server running locally on port 8080
 
-REMOTE = "http://127.0.0.1:8080"
-#REMOTE = "https://servers.polehammer.net"
+#REMOTE = "http://127.0.0.1:8080"
 
-serverBrowser.getServerList(REMOTE)
+args = argparse.ArgumentParser(description="Register a Chivalry 2 server with the server browser")
+args.add_argument('-r', "--remote", required=False, type=str, default="http://servers.polehammer.net")
+args.add_argument('-n', "--name", required=False, type=str, default="Chivalry 2 Private Server")
+args.add_argument('-d', "--description", required=False, type=str, default="")
+args = args.parse_args()
 
-with Registration(REMOTE, name="DrLong's awesome testing server", 
-                  description="This server may or may or may not actually be live! Join at your own peril!",
-                  gamePort=54432, queryPort=25565, pingPort=1234) as re:
-        print(serverBrowser.getServerList(REMOTE))
-        #while True:
-        #    #gameInfo = a2s.getInfo(("localhost",7071))
-        #    #re.updateMap(gameInfo.mapName)
-        #    #re.updatePlayercount(gameInfo.playerCount+gameInfo.botCount)
-        #    #re.updateMaxPlayercount(gameInfo.maxPlayers)
-        #    print("Updated server information")
-        #    sleep(10)
-        sleep(5)
+serverBrowser.getServerList(args.remote)
 
-serverBrowser.getServerList(REMOTE)
+with Registration(args.remote, name=args.name, description=args.description) as re:
+        print(serverBrowser.getServerList(args.remote))
+        while True:
+            try: 
+                gameInfo = a2s.getInfo(("localhost",7071))
+                re.updateMap(gameInfo.mapName)
+                re.updatePlayercount(gameInfo.playerCount+gameInfo.botCount)
+                re.updateMaxPlayercount(gameInfo.maxPlayers)
+                print(f"Updated server information successfully. {gameInfo.playerCount+gameInfo.botCount} players on {gameInfo.mapName}")
+                sleep(10)
+            except Exception as e:
+                print("Something went wrong. Trying again.")
+                print(e.with_traceback())
+                break
+
+serverBrowser.getServerList(args.remote)
 
 print("Server Ended")
