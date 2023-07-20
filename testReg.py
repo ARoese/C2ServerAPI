@@ -22,20 +22,19 @@ args = args.parse_args()
 serverBrowser.getServerList(args.remote)
 
 with Registration(args.remote, name=args.name, description=args.description) as re:
-        print(serverBrowser.getServerList(args.remote))
-        while True:
-            try: 
-                gameInfo = a2s.getInfo(("localhost",7071))
-                re.updateMap(gameInfo.mapName)
-                re.updatePlayercount(gameInfo.playerCount+gameInfo.botCount)
-                re.updateMaxPlayercount(gameInfo.maxPlayers)
-                print(f"Updated server information successfully. {gameInfo.playerCount+gameInfo.botCount} players on {gameInfo.mapName}")
-                sleep(10)
-            except Exception as e:
-                print("Something went wrong. Trying again.")
-                print(e.with_traceback())
-                break
-
-serverBrowser.getServerList(args.remote)
-
-print("Server Ended")
+    print(serverBrowser.getServerList(args.remote))
+    while True:
+        try: 
+            gameInfo = a2s.getInfo(("localhost",re.queryPort))
+            re.updateMap(gameInfo.mapName)
+            re.updatePlayercount(gameInfo.playerCount+gameInfo.botCount)
+            re.updateMaxPlayercount(gameInfo.maxPlayers)
+            print(f"Updated server information successfully. Players: {gameInfo.playerCount} Bots: {gameInfo.botCount} Map: {gameInfo.mapName}")
+            sleep(10)
+        except ConnectionResetError:
+            print("Connection reset. Trying again.")
+            sleep(1)
+        except Exception as e:
+            print("Something went wrong. Trying again.")
+            print(e.with_traceback(None))
+            sleep(1)
