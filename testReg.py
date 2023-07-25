@@ -23,7 +23,9 @@ serverBrowser.getServerList(args.remote)
 
 with Registration(args.remote, name=args.name, description=args.description) as re:
     print(serverBrowser.getServerList(args.remote))
-    while True:
+    tries = 0
+    while tries < 10: # if more than 10 tries in a row fail, then we should probably give up
+        tries = tries + 1
         try: 
             gameInfo = a2s.getInfo(("localhost",re.queryPort))
             re.updateMap(gameInfo.mapName)
@@ -31,6 +33,7 @@ with Registration(args.remote, name=args.name, description=args.description) as 
             re.updateMaxPlayercount(gameInfo.maxPlayers)
             print(f"Updated server information successfully. Players: {gameInfo.playerCount} Bots: {gameInfo.botCount} Map: {gameInfo.mapName}")
             sleep(10)
+            tries = 0
         except ConnectionResetError:
             print("Connection reset. Trying again.")
             sleep(1)
