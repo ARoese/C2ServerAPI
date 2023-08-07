@@ -30,11 +30,11 @@ Build documentation locally by running `doxygen` in the top-level directory (whe
 
 ## Starting the Server
 
-1. launch your server instance using our [C2GUILauncher](https://github.com/Chiv2-Community/C2GUILauncher). Ensure that you have the `C2ServerPlugin` mod selected to load. In future versions, this may not be the default.
-2. In your server instance, type `open <map_name>?listen` into the console, where `<map_name>` is the name of the map you want to initially start in. A list of map names is maintained [here](https://docs.google.com/spreadsheets/d/1AJoXqLyCtDhWxnhQH3TuVGe-w8syoVtM/edit#gid=2059699818).
-3. On your host machine, run the `testReg.py` script to register this server with the backend. Until this script is closed, your server will be visible in the in-game server browser of modded clients.
+1. launch your server instance using our [C2GUILauncher](https://github.com/Chiv2-Community/C2GUILauncher) in modded mode. Ensure that you have the `C2ServerPlugin` mod selected to load. In future versions, this may not be the default.
+2. In your server instance, open the console(`), type `open <map_name>?listen` into the console, where `<map_name>` is the name of the map you want to initially start in. A list of map names is maintained [here](https://docs.google.com/spreadsheets/d/1AJoXqLyCtDhWxnhQH3TuVGe-w8syoVtM/edit#gid=2059699818).
+3. On your host machine, run the `testReg.py` script to register this server with the backend. While this script continues to run, your server will be "online" in the in-game server browser of modded clients.
 
->Clarification: You registered with `servers.polehammer.net` by default, and all clients use that by default. If you choose to register with a different server list, or if a client is using a different server list, then they will not see your server. You only need to worry about this if you (or someone trying to join your server) go out of your way.
+>Clarification: You registered with `servers.polehammer.net` by default, and all clients use that by default. If you choose to register with a different server list, or if a client is using a different server list, then they will not see your server. You only need to worry about this if you intentionally change away from the default server list.
 
 **testReg example usage:**
 
