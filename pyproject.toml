@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "c2serverapi"
+version = "0.1.0"
+description = "A client for registering chivalry 2 servers to a server browser backend."
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.7,<3.13"
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+pyinstaller = "^5.13.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
