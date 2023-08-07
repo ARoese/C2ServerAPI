@@ -4,3 +4,4 @@ chiv2-server-browser-api.yaml
 .vs
 dist/
 build/
+*.spec
