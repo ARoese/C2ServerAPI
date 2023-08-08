@@ -4,7 +4,7 @@ from typing import AnyStr
 from threading import Thread, Lock, Condition
 import time
 
-from . import serverBrowser
+import serverBrowser
 
 class Registration:
     """Represents a registration of this chivalry server with a server browser.
