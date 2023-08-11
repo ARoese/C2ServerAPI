@@ -14,7 +14,6 @@ class Chivalry:
         Functionality is implemented using a combination of OCR and windows input emulation. Using
         this class may cause difficulties using the computer for anything other than chivalry, and may even
         make it difficult for the user to close it depending on how it's used. USE WITH CAUTION!
-    
     """
     def __init__(self):
         if self.getChivalryWindowHandle() == 0:

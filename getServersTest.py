@@ -1,4 +1,4 @@
-from src.serverRegister import Registration, serverBrowser
+import src.serverBrowser as serverBrowser
 from src import a2s
 from time import sleep
 

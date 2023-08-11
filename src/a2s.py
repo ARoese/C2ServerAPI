@@ -37,23 +37,23 @@ def __extractString(bts : bytes, offset : int) -> tuple[str,int]:
 @__dataclass
 class A2S_INFO:
     """Data returned by A2S_INFO request"""
-    protocolVersion: int
-    serverName: str
-    mapName: str
-    folder: str
-    Game: str
-    steamGameId: int
-    playerCount: int
-    maxPlayers: int
-    botCount: int
-    serverType: str
-    environment: str
-    isPrivate: bool
-    vacEnabled: bool
-    version: str
-    edf: int
+    protocolVersion: int = 0
+    serverName: str = "Server name"
+    mapName: str = "Unknown"
+    folder: str = ""
+    Game: str = "Chivalry 2"
+    steamGameId: int = 0
+    playerCount: int = 0
+    maxPlayers: int = 0
+    botCount: int = 0
+    serverType: str = ""
+    environment: str = ""
+    isPrivate: bool = False
+    vacEnabled: bool = False
+    version: str = ""
+    edf: int = 0
 
-def getInfo(address : tuple[str, int]) -> A2S_INFO:
+def getInfo(address : tuple[str, int] = ("127.0.0.1", 7071)) -> A2S_INFO:
     """Get server information
 
     @param address: address of the server to send the request to in the form ("127.0.0.1", 7071)/(address,port)
