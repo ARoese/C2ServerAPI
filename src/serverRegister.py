@@ -128,6 +128,7 @@ class Registration:
 
             #this will always sent a heartbeat 20% of the way before expiry, to give wiggle-room
             try:
+                self.__printLambda(str((self.refreshBy - time.time())))
                 if not self.__stopHeartbeatCond.acquire(timeout=0.8*(self.refreshBy - time.time())):
                     self.__doHeartBeat()
                 else:
@@ -137,6 +138,7 @@ class Registration:
             except Exception as e:
                 self.__printLambda("Failed to send heartbeat to the server list:")
                 self.__printLambda(str(e))
+                time.sleep(1)
     
     def __updateThreadTarget(self):
         self.__printLambda("Update thread started")
@@ -151,6 +153,7 @@ class Registration:
             except Exception as e:
                 self.__printLambda("Failed to send update to the server list:")
                 self.__printLambda(str(e))
+                time.sleep(1)
 
     def __enter__(self):
         #register with the serverList
