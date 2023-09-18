@@ -6,6 +6,7 @@ import time
 import a2s
 
 import serverBrowser
+from serverBrowser import ResponseError
 
 MAX_RETRIES = 10
 class Registration:
@@ -70,14 +71,16 @@ class Registration:
         while tries < MAX_RETRIES:
             try:
                 info = a2s.getInfo()
+                with self.__mutex:
+                    if info != self.a2sInfo:
+                        self.a2sInfo = info
+                        self.__pushUpdateToBackend()
+                        break
             except:
                 tries += 1
                 self.__printLambda(f"a2s timed out. Trying again ({tries}/{MAX_RETRIES})")
                 time.sleep(1)
-        with self.__mutex:
-            if info != self.a2sInfo:
-                self.a2sInfo = info
-                self.__pushUpdateToBackend()
+
 
     def __startHeartbeat(self):
         #acquire the heartbeat mutex immediately, so that the heartBeat thread can never obtain it
@@ -113,9 +116,26 @@ class Registration:
     def __doHeartBeat(self):
         if self.__heartBeatThread is None:
             return
+        
         with self.__mutex:
-            self.refreshBy = serverBrowser.heartbeat(self.serverListAddress, self.unique_id, self.__key, self.port)
-            self.__printLambda("Heartbeat signal sent to server list")
+            try:
+                self.refreshBy = serverBrowser.heartbeat(self.serverListAddress, self.unique_id, self.__key, self.port, printLambda=self.__printLambda)
+                self.__printLambda("Heartbeat signal sent to server list")
+            except ResponseError as e:
+                if e.code == 404:
+                    self.__printLambda("Server registration expired, re-registering...")
+                    self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(
+                        self.serverListAddress, self.port, self.pingPort, 
+                        self.queryPort, self.name, self.description, 
+                        self.a2sInfo.mapName, self.a2sInfo.playerCount, 
+                        self.a2sInfo.maxPlayers, 
+                        self.mods, 
+                        printLambda=self.__printLambda
+                    )
+                    self.__printLambda("Server registration successful.")
+
+                else:
+                    raise 
 
     def __heartBeatThreadTarget(self):
         self.__printLambda("Heartbeat thread started")
@@ -154,9 +174,13 @@ class Registration:
 
     def __enter__(self):
         #register with the serverList
+        self.__printLambda("Registering server with backend.")
         self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(self.serverListAddress, 
                     self.port, self.pingPort, self.queryPort, self.name, 
-                    self.description, self.a2sInfo.mapName, self.a2sInfo.playerCount, self.a2sInfo.maxPlayers, self.mods)
+                    self.description, self.a2sInfo.mapName, self.a2sInfo.playerCount, self.a2sInfo.maxPlayers, self.mods,
+                    printLambda=self.__printLambda)
+        self.__printLambda("Registration successful.")
+        
         self.__startHeartbeat()
         self.__startUpdating()
         return self

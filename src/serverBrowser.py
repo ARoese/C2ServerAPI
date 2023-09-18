@@ -3,26 +3,32 @@ import json
 from typing import AnyStr, Tuple
 #from time import sleep
 
+class ResponseError(RuntimeError):
+    def __init__(self, message: str, code: int, underlying: Exception = None):
+        super().__init__(message)
+        self.code = code
+        self.underlying = underlying
+
 def __buildError(errorCode : int, errResponse: json) -> str:
     return ("Server could not be updated: error {}.\n"
             "Message: {}\n"
             "Context: {}\n"
             "Status: {}\n").format(errorCode, errResponse.get('message'), errResponse.get('context'), errResponse.get('status'))
 
-def __checkResponse(response : requests.Response):
+def __checkResponse(response : requests.Response) -> None:
     try:
         parsed = response.json()
     except:
-        raise RuntimeError("Server error (could not parse response body): " + str(response.status_code))
+        raise ResponseError("Server error (could not parse response body): " + str(response.status_code), response.status_code)
     
     if not 500 <= response.status_code < 600:
-        raise RuntimeError(__buildError(response.status_code, parsed))
+        raise ResponseError(__buildError(response.status_code, parsed), response.status_code)
     else:
-        raise RuntimeError("Server error: " + str(response.status_code))
+        raise ResponseError("Server error: " + str(response.status_code), response.status_code)
 
 def registerServer(address: AnyStr, gamePort: int = 7777, pingPort: int = 3075, queryPort: int = 7071, name: AnyStr = "Chivalry 2 Server", 
                    description: AnyStr = "No description", current_map: AnyStr = "Unknown", 
-                   player_count: int = -1, max_players: int = -1, mods = []) -> Tuple[str,float]:
+                   player_count: int = -1, max_players: int = -1, mods = [], printLambda=print) -> Tuple[str,float]:
     """Register a chivalry server with a server browser backend.
 
     @param address: The URL of the serverlist to register with. This should be in the form 
@@ -64,7 +70,7 @@ def registerServer(address: AnyStr, gamePort: int = 7777, pingPort: int = 3075, 
         return jsResponse['server']['unique_id'], jsResponse['key'], float(jsResponse['refresh_before'])
         
 def updateServer(address : AnyStr, unique_id : str, key : str, 
-                 player_count : int, max_players : int, current_map : str) -> None:
+                 player_count : int, max_players : int, current_map : str, printLambda=print) -> None:
     """Send a heartbeat to the server browser backend
     
     Heatbeats must be sent periodically
@@ -95,7 +101,7 @@ def updateServer(address : AnyStr, unique_id : str, key : str,
     else:
         return None
     
-def delete(address: AnyStr, unique_id : str, key : str):
+def delete(address: AnyStr, unique_id : str, key : str, printLambda=print) -> None:
     """Send a heartbeat to the server browser backend
     
     Heatbeats must be sent periodically
@@ -122,7 +128,7 @@ def delete(address: AnyStr, unique_id : str, key : str):
     else:
         return None
     
-def heartbeat(address: AnyStr, unique_id : str, key : str, port : int):
+def heartbeat(address: AnyStr, unique_id : str, key : str, port : int, printLambda=print) -> float:
     """Send a heartbeat to the server browser backend
     
     Heatbeats must be sent periodically
@@ -145,11 +151,17 @@ def heartbeat(address: AnyStr, unique_id : str, key : str, port : int):
                 __checkResponse(response)
             else:
                 return float(response.json()['refresh_before'])
+        except ResponseError as e:
+            if e.code == 404:
+                raise e
         except Exception as e:
-            print(e)
-            print("Retrying heartbeat")
+            printLambda("Error sending heartbeat: " + str(e))
+            printLambda("Retrying heartbeat")
+
+            if i == 9:
+                raise e
         
-def getServerList(address: AnyStr):
+def getServerList(address: AnyStr, printLambda=print) -> str:
     """Retreive a list of all Chivalry servers registered with the backend
 
     @param address: The URL of the serverlist to register with. This should be in the form 
