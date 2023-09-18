@@ -151,7 +151,7 @@ class Registration:
                 if not self.__stopHeartbeatCond.acquire(timeout=0.8*(self.refreshBy - time.time())):
                     self.__doHeartBeat()
                 else:
-                    self.__printLambda("Heartbeat thread ended")
+                    self.__printLambda("Heartbeat thread ended. Failed to acquire mutex.")
                     self.__stopHeartbeatCond.release()
                     return
             except Exception as e:

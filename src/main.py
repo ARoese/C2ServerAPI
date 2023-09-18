@@ -1,3 +1,4 @@
+import traceback
 from serverRegister import Registration
 import a2s
 from time import sleep
@@ -5,6 +6,7 @@ import argparse
 import socket
 import curses
 import curses.ascii
+from collections import deque
 
 import signal
 signal.signal(signal.SIGINT, signal.SIG_DFL) #so that sigint will actually kill all threads
@@ -68,6 +70,7 @@ def outputString(outputWindow, s):
     outputWindow.addstr(s + "\n")
     outputWindow.refresh()
 
+last_command = ""
 def main(screen):
     height, width = screen.getmaxyx()
     outputWindowBox, inputWindowBox, outputWindow, inputWindow = createWindows(screen)
@@ -75,59 +78,97 @@ def main(screen):
     printing = lambda s: outputString(outputWindow, s)
 
     
-    
     with Registration(args.remote, name=args.name, description=args.description, printLambda=printing) as re:
-        lastCommand = ""
+        command_list = deque(maxlen=100)
         while True:
-            command = ""
-            while True:
-                char = screen.getkey()
-                #outputWindow.addstr(str(ord(char)))
-                #outputWindow.addstr(str(curses.ascii.ESC))
-                #outputWindow.refresh()
-                if char == "KEY_RESIZE":
-                    outputWindowBox, inputWindowBox, outputWindow, inputWindow = createWindows(screen)
-                    height, width = screen.getmaxyx()
-                    continue
-                elif safeOrd(char) == curses.ascii.ESC: #escape
-                    command = ""
-                elif char == '\b':
-                    outputWindow.addstr("backspace\n")
-                    command = command[:-1]
-                elif safeOrd(char) == 127: #ctrl-backspace
-                    outputWindow.addstr("ctr-backspace\n")
-                    command = ""
-                elif char =='\n':
-                    #outputWindow.addstr(str(len(command)))
-                    if len(command) == 0:
-                        command = lastCommand
-                    lastCommand = command
-                    command += "\n"
-                    break
-                else:
-                    command += char
-                screen.move(height-2,len(command)+1)
-                inputWindow.erase()
-                inputWindow.addstr(command)
-                inputWindow.refresh()
-            
-            inputWindow.erase()
-            screen.move(height-2,1)
-            inputWindow.refresh()
-            
-            outputWindow.addstr(command)
             try:
-                rcon = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                rcon.connect(("127.0.0.1", 9001))
-                rcon.sendall(bytes(command, "ASCII"))
-                rcon.close()
+                command = ""
+                search_prefix = ""
+                chars = []
+                command_index = -1
+
+                try:
+                    while True:
+                        char = screen.get_wch()
+                        if isinstance(char, str):
+                            if char == "\n" or char == "\r" or char == "\r\n":
+                                command_list.appendleft(command)
+                                command += "\n"
+                                break
+                            elif char == "\b":
+                                command = command[:-1]
+                            elif char == "\t":
+                                command += "    "
+                            else:
+                                command += char
+                            search_prefix = command
+                        elif char == curses.KEY_RESIZE:
+                            outputWindowBox, inputWindowBox, outputWindow, inputWindow = createWindows(screen)
+                            height, width = screen.getmaxyx()
+                            continue
+                        elif char == curses.KEY_UP or char == curses.KEY_A2:
+                            filtered_commands = list(filter(lambda x: x.startswith(search_prefix), command_list))
+                            if len(filtered_commands) > (command_index + 1):
+                                command_index += 1
+                                command = filtered_commands[command_index]
+                        elif char == curses.KEY_DOWN or char == curses.KEY_C2:
+                            filtered_commands = list(filter(lambda x: x.startswith(search_prefix), command_list))
+                            if command_index > 0 and len(filtered_commands) > 0:
+                                command_index -= 1
+                                command = filtered_commands[command_index]
+                            else:
+                                command_index = -1
+                                command = ""
+                        elif char == curses.ascii.ESC: #escape
+                            command = ""
+                        elif char == curses.KEY_BACKSPACE:
+                            outputWindow.addstr("backspace\n")
+                            command = command[:-1]
+                        elif char == 127: #ctrl-backspace
+                            outputWindow.addstr("ctr-backspace\n")
+                            command = ""
+                        
+                        last_command = command
+
+                        screen.move(height-2,len(command)+1)
+                        inputWindow.erase()
+                        inputWindow.addstr(command)
+                        inputWindow.refresh()
+
+                    inputWindow.erase()
+                    screen.move(height-2,1)
+                    inputWindow.refresh()
+                    
+                    outputWindow.addstr(command)
+                    outputWindow.refresh()
+
+                    if command.startswith("!"):
+                        if command == "!history\n":
+                            for c in command_list.reverse():
+                                outputWindow.addstr(c + "\n")
+                                outputWindow.refresh()
+
+                        continue
+
+                    rcon = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    rcon.connect(("127.0.0.1", 9001))
+                    rcon.sendall(bytes(command, "ASCII"))
+                    rcon.close()
+                except ConnectionRefusedError:
+                    outputWindow.addstr("Failed to connect to RCON server. Is it running?\n")
+                    outputWindow.refresh()
+                except Exception as e:
+                    outputWindow.addstr(traceback.format_exc())
+                    outputWindow.refresh()   
             except Exception as e:
-                outputWindow.addstr(f"Error sending command: {str(e)}\n")
-            outputWindow.refresh()   
+                outputWindow.addstr(traceback.format_exc())
+                outputWindow.refresh()   
+                raise e
 
 
 
 try:
     curses.wrapper(main)
 except Exception as e:
-        print(str(e))
+    print("Failed when running command: " + last_command)
+    traceback.print_exc()
