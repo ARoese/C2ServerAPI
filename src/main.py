@@ -144,9 +144,11 @@ def main(screen):
 
                     if command.startswith("!"):
                         if command == "!history\n":
-                            for c in command_list.reverse():
+                            command_list.reverse()
+                            for c in command_list:
                                 outputWindow.addstr(c + "\n")
                                 outputWindow.refresh()
+                            command_list.reverse() # unreverse
 
                         continue
 
