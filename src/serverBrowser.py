@@ -26,7 +26,7 @@ def __checkResponse(response : requests.Response) -> None:
     else:
         raise ResponseError("Server error: " + str(response.status_code), response.status_code)
 
-def registerServer(address: AnyStr, gamePort: int = 7777, pingPort: int = 3075, queryPort: int = 7071, name: AnyStr = "Chivalry 2 Server", 
+def registerServer(address: AnyStr, local_ip: AnyStr, gamePort: int = 7777, pingPort: int = 3075, queryPort: int = 7071, name: AnyStr = "Chivalry 2 Server", 
                    description: AnyStr = "No description", current_map: AnyStr = "Unknown", 
                    player_count: int = -1, max_players: int = -1, mods = [], printLambda=print) -> Tuple[str,float]:
     """Register a chivalry server with a server browser backend.
@@ -60,6 +60,7 @@ def registerServer(address: AnyStr, gamePort: int = 7777, pingPort: int = 3075, 
         "current_map": current_map,
         "player_count": player_count,
         "max_players": max_players,
+        "local_ip_address": local_ip, 
         "mods": mods
     }
     response = requests.post(address+"/api/v1/servers", json=serverObj)
