@@ -6,6 +6,7 @@ import time
 import a2s
 
 import serverBrowser
+from serverBrowser import ResponseError
 
 MAX_RETRIES = 10
 class Registration:
@@ -16,7 +17,7 @@ class Registration:
         server list specified in the constructor. Heartbeat signals are also sent periodically at
         the interval(s) requested by the server.
     """
-    def __init__(self, serverListAddress, gamePort: int = 7777, pingPort: int = 3075, queryPort: int = 7071, 
+    def __init__(self, serverListAddress: str, local_ip: str, gamePort: int = 7777, pingPort: int = 3075, queryPort: int = 7071, 
                     name: AnyStr = "Chivalry 2 Server", description: AnyStr = "No description",
                     current_map: AnyStr = "Unknown", 
                     player_count: int = -1, max_players: int = -1, mods = [], printLambda=print):
@@ -50,6 +51,7 @@ class Registration:
         self.description = description
         self.mods = mods
         self.a2sInfo : a2s.A2S_INFO = a2s.A2S_INFO()
+        self.local_ip = local_ip
         self.__heartBeatThread = None
         self.__updateThread = None
         self.__printLambda = printLambda
@@ -70,14 +72,16 @@ class Registration:
         while tries < MAX_RETRIES:
             try:
                 info = a2s.getInfo()
+                with self.__mutex:
+                    if info != self.a2sInfo:
+                        self.a2sInfo = info
+                        self.__pushUpdateToBackend()
+                        break
             except:
                 tries += 1
                 self.__printLambda(f"a2s timed out. Trying again ({tries}/{MAX_RETRIES})")
                 time.sleep(1)
-        with self.__mutex:
-            if info != self.a2sInfo:
-                self.a2sInfo = info
-                self.__pushUpdateToBackend()
+
 
     def __startHeartbeat(self):
         #acquire the heartbeat mutex immediately, so that the heartBeat thread can never obtain it
@@ -113,9 +117,26 @@ class Registration:
     def __doHeartBeat(self):
         if self.__heartBeatThread is None:
             return
+        
         with self.__mutex:
-            self.refreshBy = serverBrowser.heartbeat(self.serverListAddress, self.unique_id, self.__key, self.port)
-            self.__printLambda("Heartbeat signal sent to server list")
+            try:
+                self.refreshBy = serverBrowser.heartbeat(self.serverListAddress, self.unique_id, self.__key, self.port, printLambda=self.__printLambda)
+                self.__printLambda("Heartbeat signal sent to server list")
+            except ResponseError as e:
+                if e.code == 404:
+                    self.__printLambda("Server registration expired, re-registering...")
+                    self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(
+                        self.serverListAddress, self.local_ip, self.port, self.pingPort, 
+                        self.queryPort, self.name, self.description, 
+                        self.a2sInfo.mapName, self.a2sInfo.playerCount, 
+                        self.a2sInfo.maxPlayers, 
+                        self.mods, 
+                        printLambda=self.__printLambda
+                    )
+                    self.__printLambda("Server registration successful.")
+
+                else:
+                    raise 
 
     def __heartBeatThreadTarget(self):
         self.__printLambda("Heartbeat thread started")
@@ -132,7 +153,7 @@ class Registration:
                 if not self.__stopHeartbeatCond.acquire(timeout=0.8*(self.refreshBy - time.time())):
                     self.__doHeartBeat()
                 else:
-                    self.__printLambda("Heartbeat thread ended")
+                    self.__printLambda("Heartbeat thread ended. Failed to acquire mutex.")
                     self.__stopHeartbeatCond.release()
                     return
             except Exception as e:
@@ -157,9 +178,13 @@ class Registration:
 
     def __enter__(self):
         #register with the serverList
+        self.__printLambda("Registering server with backend.")
         self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(self.serverListAddress, 
-                    self.port, self.pingPort, self.queryPort, self.name, 
-                    self.description, self.a2sInfo.mapName, self.a2sInfo.playerCount, self.a2sInfo.maxPlayers, self.mods)
+                    self.local_ip, self.port, self.pingPort, self.queryPort, self.name, 
+                    self.description, self.a2sInfo.mapName, self.a2sInfo.playerCount, self.a2sInfo.maxPlayers, self.mods,
+                    printLambda=self.__printLambda)
+        self.__printLambda("Registration successful.")
+        
         self.__startHeartbeat()
         self.__startUpdating()
         return self
