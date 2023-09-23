@@ -24,6 +24,9 @@ args.add_argument('-r', "--remote", required=False, type=str, default="https://s
 args.add_argument('-n', "--name", required=False, type=str, default="Chivalry 2 Private Server")
 args.add_argument('-d', "--description", required=False, type=str, default="")
 args.add_argument('-c', "--rcon", required=False, type=int, default=9001)
+args.add_argument('-g', "--game-port", required=False, type=int, default=7777)
+args.add_argument('-p', "--ping-port", required=False, type=int, default=3075)
+args.add_argument('-a', "--a2s-port", required=False, type=int, default=7071)
 args.add_argument('-z', '--no-register', action='store_true', default=False, help="Don't register the server with the server browser")
 args = args.parse_args()
 
@@ -85,7 +88,8 @@ def main(screen):
 
 def process_rcon_interface_with_registration(screen, outputWindow, inputWindow):
     printing = lambda s: outputString(outputWindow, s)
-    with Registration(args.remote, local_ip=get_local_ip(), name=args.name, description=args.description, printLambda=printing):
+    with Registration(args.remote, local_ip=get_local_ip(), name=args.name, description=args.description, printLambda=printing,
+                      gamePort=args.game_port, pingPort=args.ping_port, queryPort=args.a2s_port):
         process_rcon_interface(screen, outputWindow, inputWindow)
 
 def process_rcon_interface(screen, outputWindow, inputWindow):
