@@ -28,6 +28,7 @@ args.add_argument('-g', "--game-port", required=False, type=int, default=7777)
 args.add_argument('-p', "--ping-port", required=False, type=int, default=3075)
 args.add_argument('-a', "--a2s-port", required=False, type=int, default=7071)
 args.add_argument('-z', '--no-register', action='store_true', default=False, help="Don't register the server with the server browser")
+args.add_argument('-x', '--password-protected', action='store_true', default=False, help="Indicate to the server that this server is password protected")
 args = args.parse_args()
 
 def createWindows(screen, outputWindowBox=None, inputWindowBox=None, outputWindow=None, inputWindow=None):
@@ -76,20 +77,24 @@ def outputString(outputWindow, s):
     outputWindow.refresh()
 
 def main(screen):
-    _, _, outputWindow, inputWindow = createWindows(screen)
-    if args.no_register:
-        outputWindow.addstr("Setting up rcon interface with no server browser listing.\n")
-        outputWindow.refresh()
-        process_rcon_interface(screen, outputWindow, inputWindow)
-    else:
-        outputWindow.addstr("Setting up rcon interface with server browser listing.\n")
-        outputWindow.refresh()
-        process_rcon_interface_with_registration(screen, outputWindow, inputWindow)
+    try: 
+        _, _, outputWindow, inputWindow = createWindows(screen)
+        if args.no_register:
+            outputWindow.addstr("Setting up rcon interface with no server browser listing.\n")
+            outputWindow.refresh()
+            process_rcon_interface(screen, outputWindow, inputWindow)
+        else:
+            outputWindow.addstr("Setting up rcon interface with server browser listing.\n")
+            outputWindow.refresh()
+            process_rcon_interface_with_registration(screen, outputWindow, inputWindow)
+    except Exception:
+        with open("RegisterUnchainedServer.errorlog.txt", "w") as f:
+            traceback.print_exc(file=f)
 
 def process_rcon_interface_with_registration(screen, outputWindow, inputWindow):
     printing = lambda s: outputString(outputWindow, s)
     with Registration(args.remote, local_ip=get_local_ip(), name=args.name, description=args.description, printLambda=printing,
-                      gamePort=args.game_port, pingPort=args.ping_port, queryPort=args.a2s_port):
+                      gamePort=args.game_port, pingPort=args.ping_port, queryPort=args.a2s_port, password_protected=args.password_protected):
         process_rcon_interface(screen, outputWindow, inputWindow)
 
 def process_rcon_interface(screen, outputWindow, inputWindow):
@@ -177,12 +182,17 @@ def process_rcon_interface(screen, outputWindow, inputWindow):
                 outputWindow.addstr("Failed to connect to RCON server. Is it running?\n")
                 outputWindow.refresh()
             except Exception as e:
+                with open("RegisterUnchainedServer.errorlog.txt", "w") as f:
+                    print("Failed when running command: " + last_command, file=f)
+                    traceback.print_exc(file=f)
                 outputWindow.addstr(traceback.format_exc())
                 outputWindow.refresh()   
         except Exception as e:
+            with open("RegisterUnchainedServer.errorlog.txt", "w") as f:
+                print("Failed when running command: " + last_command, file=f)
+                traceback.print_exc(file=f)
             outputWindow.addstr(traceback.format_exc())
             outputWindow.refresh()   
-            raise e
 
 def get_local_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -202,6 +212,7 @@ last_command = ""
 
 try:
     curses.wrapper(main)
-except Exception as e:
-    print("Failed when running command: " + last_command)
-    traceback.print_exc()
+except Exception:
+    with open("RegisterUnchainedServer.errorlog.txt", "w") as f:
+        print("Failed when running command: " + last_command, file=f)
+        traceback.print_exc(file=f)

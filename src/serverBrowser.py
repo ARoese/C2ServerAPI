@@ -28,7 +28,7 @@ def __checkResponse(response : requests.Response) -> None:
 
 def registerServer(address: AnyStr, local_ip: AnyStr, gamePort: int = 7777, pingPort: int = 3075, queryPort: int = 7071, name: AnyStr = "Chivalry 2 Server", 
                    description: AnyStr = "No description", current_map: AnyStr = "Unknown", 
-                   player_count: int = -1, max_players: int = -1, mods = [], printLambda=print) -> Tuple[str,float]:
+                   player_count: int = -1, max_players: int = -1, mods = [], password_protected: bool = False, printLambda=print) -> Tuple[str,float]:
     """Register a chivalry server with a server browser backend.
 
     @param address: The URL of the serverlist to register with. This should be in the form 
@@ -57,6 +57,7 @@ def registerServer(address: AnyStr, local_ip: AnyStr, gamePort: int = 7777, ping
         },
         "name": name,
         "description": description,
+        "password_protected": password_protected,
         "current_map": current_map,
         "player_count": player_count,
         "max_players": max_players,

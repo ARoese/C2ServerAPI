@@ -20,7 +20,7 @@ class Registration:
     def __init__(self, serverListAddress: str, local_ip: str, gamePort: int = 7777, pingPort: int = 3075, queryPort: int = 7071, 
                     name: AnyStr = "Chivalry 2 Server", description: AnyStr = "No description",
                     current_map: AnyStr = "Unknown", 
-                    player_count: int = -1, max_players: int = -1, mods = [], printLambda=print):
+                    player_count: int = -1, max_players: int = -1, mods = [], password_protected: bool = False, printLambda=print):
         """Constructor for the registration class
 
         @param serverListAddress: The URL of the serverlist to register with. This should be in the form 
@@ -55,6 +55,7 @@ class Registration:
         self.__heartBeatThread = None
         self.__updateThread = None
         self.__printLambda = printLambda
+        self.password_protected = password_protected
 
     def __pushUpdateToBackend(self):
         serverBrowser.updateServer(self.serverListAddress, 
@@ -130,7 +131,7 @@ class Registration:
                         self.queryPort, self.name, self.description, 
                         self.a2sInfo.mapName, self.a2sInfo.playerCount, 
                         self.a2sInfo.maxPlayers, 
-                        self.mods, 
+                        self.mods, self.password_protected,
                         printLambda=self.__printLambda
                     )
                     self.__printLambda("Server registration successful.")
@@ -181,7 +182,7 @@ class Registration:
         self.__printLambda("Registering server with backend.")
         self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(self.serverListAddress, 
                     self.local_ip, self.port, self.pingPort, self.queryPort, self.name, 
-                    self.description, self.a2sInfo.mapName, self.a2sInfo.playerCount, self.a2sInfo.maxPlayers, self.mods,
+                    self.description, self.a2sInfo.mapName, self.a2sInfo.playerCount, self.a2sInfo.maxPlayers, self.mods, self.password_protected
                     printLambda=self.__printLambda)
         self.__printLambda("Registration successful.")
         
