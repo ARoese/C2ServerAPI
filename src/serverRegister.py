@@ -182,7 +182,8 @@ class Registration:
         self.__printLambda("Registering server with backend.")
         self.unique_id, self.__key, self.refreshBy = serverBrowser.registerServer(self.serverListAddress, 
                     self.local_ip, self.port, self.pingPort, self.queryPort, self.name, 
-                    self.description, self.a2sInfo.mapName, self.a2sInfo.playerCount, self.a2sInfo.maxPlayers, self.mods, self.password_protected
+                    self.description, self.a2sInfo.mapName, self.a2sInfo.playerCount, self.a2sInfo.maxPlayers, 
+                    self.mods, self.password_protected,
                     printLambda=self.__printLambda)
         self.__printLambda("Registration successful.")
         
