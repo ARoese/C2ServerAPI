@@ -70,9 +70,10 @@ class Registration:
     def __doUpdate(self):
         tries = 0
         info : a2s.A2S_INFO = a2s.A2S_INFO()
+
         while tries < MAX_RETRIES:
             try:
-                info = a2s.getInfo()
+                info = a2s.getInfo((self.local_ip, self.queryPort))
                 with self.__mutex:
                     if info != self.a2sInfo:
                         self.a2sInfo = info
