@@ -175,7 +175,7 @@ def process_rcon_interface(screen, outputWindow, inputWindow):
                     continue
 
                 rcon = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                rcon.connect(("127.0.0.1", 9001))
+                rcon.connect(("127.0.0.1", args.rcon))
                 rcon.sendall(bytes(command, "ASCII"))
                 rcon.close()
             except ConnectionRefusedError:
