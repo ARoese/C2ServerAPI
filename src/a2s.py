@@ -80,7 +80,7 @@ def getInfo(address : tuple[str, int] = ("127.0.0.1", 7071)) -> A2S_INFO:
     folder, ptr = __extractString(response,ptr)
     Game, ptr = __extractString(response,ptr)
     (steamGameId, playerCount, maxPlayers, 
-    botCount, serverType, environment, visibility,vac) = __struct.unpack_from("!hbbbccbb", response, offset=ptr)
+    botCount, serverType, environment, visibility,vac) = __struct.unpack_from("!hBBBccbb", response, offset=ptr)
     ptr += 9
     version, ptr = __extractString(response, ptr)
     edf, = __struct.unpack_from("!B", response, offset=ptr)
