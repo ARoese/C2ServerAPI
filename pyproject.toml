@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "c2serverapi"
-version = "1.0.3"
+version = "1.3.0"
 description = "A client for registering chivalry 2 servers to a server browser backend."
 authors = [
     "Atom Roese <atomroese@yahoo.com>", 

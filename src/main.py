@@ -29,6 +29,7 @@ args.add_argument('-p', "--ping-port", required=False, type=int, default=3075)
 args.add_argument('-a', "--a2s-port", required=False, type=int, default=7071)
 args.add_argument('-z', '--no-register', action='store_true', default=False, help="Don't register the server with the server browser")
 args.add_argument('-x', '--password-protected', action='store_true', default=False, help="Indicate to the server that this server is password protected")
+args.add_argument('-m', '--mods', nargs='+', default=[], help="A list of mods to communicate what is enabled to the server browser")
 args = args.parse_args()
 
 def createWindows(screen, outputWindowBox=None, inputWindowBox=None, outputWindow=None, inputWindow=None):
@@ -93,8 +94,21 @@ def main(screen):
 
 def process_rcon_interface_with_registration(screen, outputWindow, inputWindow):
     printing = lambda s: outputString(outputWindow, s)
+    parsed_mods = []
+    
+    for mod_string in args.mods:
+        [org, nameAndVersion] = mod_string.split('/')
+        [name, version] = nameAndVersion.split('=')
+
+        parsed_mods.append({
+            "organization": org,
+            "name": name,
+            "version": version
+        })
+
     with Registration(args.remote, local_ip=get_local_ip(), name=args.name, description=args.description, printLambda=printing,
-                      gamePort=args.game_port, pingPort=args.ping_port, queryPort=args.a2s_port, password_protected=args.password_protected):
+                      gamePort=args.game_port, pingPort=args.ping_port, queryPort=args.a2s_port, 
+                      password_protected=args.password_protected, mods=parsed_mods):
         process_rcon_interface(screen, outputWindow, inputWindow)
 
 def process_rcon_interface(screen, outputWindow, inputWindow):
