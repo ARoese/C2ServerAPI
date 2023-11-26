@@ -1,5 +1,6 @@
 """Code relating to registering servers with a server browser"""
 
+import traceback
 from typing import AnyStr
 from threading import Thread, Lock, Condition
 import time
@@ -58,14 +59,32 @@ class Registration:
         self.password_protected = password_protected
 
     def __pushUpdateToBackend(self):
-        serverBrowser.updateServer(self.serverListAddress, 
-                self.unique_id, self.__key, self.a2sInfo.playerCount, 
-                self.a2sInfo.maxPlayers, self.a2sInfo.mapName)
-        self.__printLambda("Updated server information successfully.\n"
-                           + f"\tPlayers: {self.a2sInfo.playerCount}\n"
-                           + f"\tmaxPlayers: {self.a2sInfo.maxPlayers}\n"
-                           + f"\tBots: {self.a2sInfo.botCount}\n"
-                           + f"\tMap: {self.a2sInfo.mapName}\n")
+        try:
+            serverBrowser.updateServer(self.serverListAddress, 
+                    self.unique_id, self.__key, self.a2sInfo.playerCount, 
+                    self.a2sInfo.maxPlayers, self.a2sInfo.mapName)
+            
+            mod_strings = map(lambda mod: f"{mod['name']} {mod['version']}", self.mods)
+
+            mods_message = ', '.join(mod_strings) if self.mods else 'None'
+
+            message = f"""Updated server information successfully.
+                        Server name: {self.name}
+                        Description: {self.description}
+                        Players: {self.a2sInfo.playerCount}
+                        maxPlayers: {self.a2sInfo.maxPlayers}
+                        Bots: {self.a2sInfo.botCount}
+                        Map: {self.a2sInfo.mapName}
+                        Password protected: {self.password_protected}
+                        Mods: {mods_message}"""
+
+            self.__printLambda(message)
+        except Exception as e:
+            with open("RegisterUnchainedServer.errorlog.txt", "w") as f:
+                self.__printLambda("Failed to update server information:")
+                self.__printLambda(str(e))
+                traceback.print_exc(file=f)
+                
 
     def __doUpdate(self):
         tries = 0

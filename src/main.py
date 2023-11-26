@@ -29,7 +29,7 @@ args.add_argument('-p', "--ping-port", required=False, type=int, default=3075)
 args.add_argument('-a', "--a2s-port", required=False, type=int, default=7071)
 args.add_argument('-z', '--no-register', action='store_true', default=False, help="Don't register the server with the server browser")
 args.add_argument('-x', '--password-protected', action='store_true', default=False, help="Indicate to the server that this server is password protected")
-args.add_argument('-m', '--mods', nargs='+', default=[], help="A list of mods to communicate what is enabled to the server browser")
+args.add_argument('-m', '--mod', nargs='*', action='append', help="A list of mods to communicate what is enabled to the server browser")
 args = args.parse_args()
 
 def createWindows(screen, outputWindowBox=None, inputWindowBox=None, outputWindow=None, inputWindow=None):
@@ -89,22 +89,28 @@ def main(screen):
             outputWindow.refresh()
             process_rcon_interface_with_registration(screen, outputWindow, inputWindow)
     except Exception:
-        with open("RegisterUnchainedServer.errorlog.txt", "w") as f:
+        with open("RegisterUnchainedServer.errorlog.txt", "a") as f:
             traceback.print_exc(file=f)
 
 def process_rcon_interface_with_registration(screen, outputWindow, inputWindow):
     printing = lambda s: outputString(outputWindow, s)
     parsed_mods = []
     
-    for mod_string in args.mods:
-        [org, nameAndVersion] = mod_string.split('/')
-        [name, version] = nameAndVersion.split('=')
+    for mod_string in args.mod: # No idea why argparse makes this a list of lists
+        try:
+            mod_string_actual = mod_string[0] # but it means we have to do this
+            [org, name_and_version] = mod_string_actual.split('/')
+            [name, version] = name_and_version.split('=')
 
-        parsed_mods.append({
-            "organization": org,
-            "name": name,
-            "version": version
-        })
+            parsed_mods.append({
+                "organization": org,
+                "name": name,
+                "version": version
+            })
+        except Exception as e:
+            with open("RegisterUnchainedServer.errorlog.txt", "a") as f:
+                print("Failed to parse mod string: " + mod_string_actual, file=f)
+                traceback.print_exc(file=f)
 
     with Registration(args.remote, local_ip=get_local_ip(), name=args.name, description=args.description, printLambda=printing,
                       gamePort=args.game_port, pingPort=args.ping_port, queryPort=args.a2s_port, 
@@ -196,13 +202,13 @@ def process_rcon_interface(screen, outputWindow, inputWindow):
                 outputWindow.addstr("Failed to connect to RCON server. Is it running?\n")
                 outputWindow.refresh()
             except Exception as e:
-                with open("RegisterUnchainedServer.errorlog.txt", "w") as f:
+                with open("RegisterUnchainedServer.errorlog.txt", "a") as f:
                     print("Failed when running command: " + last_command, file=f)
                     traceback.print_exc(file=f)
                 outputWindow.addstr(traceback.format_exc())
                 outputWindow.refresh()   
         except Exception as e:
-            with open("RegisterUnchainedServer.errorlog.txt", "w") as f:
+            with open("RegisterUnchainedServer.errorlog.txt", "a") as f:
                 print("Failed when running command: " + last_command, file=f)
                 traceback.print_exc(file=f)
             outputWindow.addstr(traceback.format_exc())
@@ -227,6 +233,6 @@ last_command = ""
 try:
     curses.wrapper(main)
 except Exception:
-    with open("RegisterUnchainedServer.errorlog.txt", "w") as f:
+    with open("RegisterUnchainedServer.errorlog.txt", "a") as f:
         print("Failed when running command: " + last_command, file=f)
         traceback.print_exc(file=f)
