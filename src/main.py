@@ -96,10 +96,10 @@ def process_rcon_interface_with_registration(screen, outputWindow, inputWindow):
     printing = lambda s: outputString(outputWindow, s)
     parsed_mods = []
     
-    for mod_string in args.mod: # No idea why argparse makes this a list of lists
+    for mod_strings in args.mod:
         try:
-            mod_string_actual = mod_string[0] # but it means we have to do this
-            [org, name_and_version] = mod_string_actual.split('/')
+            mod_string_combined = ' '.join(mod_strings) 
+            [org, name_and_version] = mod_string_combined.split('/')
             [name, version] = name_and_version.split('=')
 
             parsed_mods.append({
@@ -109,7 +109,7 @@ def process_rcon_interface_with_registration(screen, outputWindow, inputWindow):
             })
         except Exception as e:
             with open("RegisterUnchainedServer.errorlog.txt", "a") as f:
-                print("Failed to parse mod string: " + mod_string_actual, file=f)
+                print("Failed to parse mod string: " + mod_string_combined, file=f)
                 traceback.print_exc(file=f)
 
     with Registration(args.remote, local_ip=get_local_ip(), name=args.name, description=args.description, printLambda=printing,
