@@ -2,7 +2,9 @@ See documentation [here](https://chiv2-community.github.io/C2ServerAPI/)
 
 Build documentation locally by running `doxygen` in the top-level directory (where the Doxyfile is)
 
-# Hosting your own server
+# Setting up an unchained server
+
+Excessive moddification of ini files or other mods before starting this may cause issues. If you have problems, try completely deleting `%localappdata%/Chivalry 2` and reinstalling chivalry 2 before doing this tutorial again.
 
 ## Definitions:
 * Host machine: 
@@ -14,56 +16,65 @@ Build documentation locally by running `doxygen` in the top-level directory (whe
 * Backend:
   * An instance of our [C2ServerBrowserBackend](https://github.com/Chiv2-Community/C2ServerBrowserBackend). We run one at `servers.polehammer.net`, so you don't have to. This imitates portions of the playfab API to send custom MOTD and server list results to clients that target it.
 
-## Preparation
-1. Forward and make firewall rules allowing incoming connections to these ports: (more on this later)
-   * UDP/7777 (Server port)
-     * real-time game data is sent over this port
-   * UDP/7071 (A2S query port)
-     * game state data like map name and player count is advertised on this port
-   * UDP/3075 (UDP Ping port)
-     * This is used by the in-game server browser to check the ping to a server. This is ***NOT*** and ICMP ping. If it isn't open, it will list as 9999ms ping and disallow join attempts.
+## initial setup
 
-2. Clone this [C2ServerAPI](https://github.com/Chiv2-Community/C2ServerAPI) repository onto your host machine (yes, I did just link the repo you're reading off right now)
-3. install [python3](https://www.python.org/downloads/) onto your host machine
-4. use pip to install the dependencies 
-   * ```pip install requests```
+1. Install unchained on the host as you normally would. Make sure unchained is replacing the normal chivalry 2 launcher. (you will be prompted to do this on install)
+2. Go to the 'server' tab of the unchained launcher and enter your server's name and other configuration
 
-## Starting the Server
+If Chivalry 2 has not run on this machine before, or you deleted `%localappdata%/Chivalry 2`:
+Click "Launch headless" in the bottom right. Let this run for ~20 seconds to ensure that ini files are generated before closing all windows that opened. You may be prompted to download several files: Click "Yes"
 
-1. launch your server instance using our [C2GUILauncher](https://github.com/Chiv2-Community/C2GUILauncher). Ensure that you have the `C2ServerPlugin` mod selected to load. In future versions, this may not be the default.
-2. In your server instance, type `open <map_name>?listen` into the console, where `<map_name>` is the name of the map you want to initially start in. A list of map names is maintained [here](https://docs.google.com/spreadsheets/d/1AJoXqLyCtDhWxnhQH3TuVGe-w8syoVtM/edit#gid=2059699818).
-3. On your host machine, run the `testReg.py` script to register this server with the backend. Until this script is closed, your server will be visible in the in-game server browser of modded clients.
+**IMPORTANT FOR NFO HOSTS:** If you are using NFO hosting, there is a port conflict with UDP/7777. Change your game port to 7778 in the server tab. No other action is needed. If you do not do this then you will experience extreme gameplay degredation.
 
->Clarification: You registered with `servers.polehammer.net` by default, and all clients use that by default. If you choose to register with a different server list, or if a client is using a different server list, then they will not see your server. You only need to worry about this if you (or someone trying to join your server) go out of your way.
+## Necessary ini Tweaks
+There are two ini settings that must be set in order to successfully host. Navigate to `%localappdata%/Chivalry 2/Saved/Config/WindowsNoEditor` in your file browser and open `Game.ini`. Add the following lines to the top of the file:  
+```ini
+[/Script/TBL.TBLGameInstance]
+FirstLoadCompleted=True
 
-**testReg example usage:**
+[/Script/TBL.TBLTitleScreen]
+bSavedHasAgreedToTOS=True
+```
 
-```python3 testReg.py --name "My server" --description "No RDMing pls. Run by DrLong"```
+**NOTE:** If the TBLGameInstance or TBLTitleScreen sections are already present somewhere in the file, add the lines to those sections instead of making a duplicate.
 
-run `python3 testReg.py` for more help on arguments
+## launching
+Go back to the server tab in the unchained launcher and click "Launch Headless". You may be prompted to download several files: Click "Yes". Two windows will open. The first is the unchained debug window, which you will see during normal unchaiend launches. The second is your server's RCON control panel. This registers your server with the unchained backend (so that it appears in the unchaiend in-game server list) and allows you to execute server commands. These commands are from the same list as the in-game console.
+
+## port forwarding
+NFO Hosts: NFO servers have automatic port forwarding--you don't have to do anything here.
+
+Before anyone other than you can join your server, you need to forward your ports. (expose them to to the open internet)
+You must forward the following ports:
+- Game Port (default UDP/7777)
+- Ping Port (default UDP/3075)
+
+Additional ports that are used but do not need to be or should not be forwarded:
+- RCON port (default TCP/9001)
+- A2S port (default UDP/7071)
+
+***The RCON port (TCP/9001) should not be exposed to the open internet!*** Doing this would give anyone and their grandma full freedom to execute admin commands on your server! They (likely) can't hack your machine through this, but they *can* ban people, kick people, and change the map to whatever they want! If you want your admins accessing this, use [ssh tunneling](https://www.ssh.com/academy/ssh/tunneling-example) or set up your firewall rules to allow only them!
+
+The ports you need to forward are visible (and can be changed to whatever you want before launching) in the server tab of the unchained launcher. Doing this follows the same procedure as forwarding ports for any other game, and thus will not be described here. Tutorials for port forwarding can be found online.
+
+# troubleshooting
+
+## A2S Timed Out
+On the initial start of your server, these messages are normal. The console attempts to connect to the chivalry server before it has actually had time to start up and listen. If these messages do not stop appearing after ~30 seconds, then there is something wrong.
+
+1. Try sending a console command. 
+   1. If you get an error in the server console, this means that the chivalry process is not listening on RCON. This indicates a plugin loading issue. Close the server windows and re-start it. If the issue persists, contact the Unchained Team for help.
+   2. If you see the same console command appear in the debug output window, this indicates that the plugins are loaded, but the server has not yet loaded into the map to listen on the A2S port.
+      1. Check if there is a "Substituted console command" line in the debug output. If there is one, contact the Unchained Team--this indicates there is an issue in the Unchained-Mods and map loading machinery.
+      2. If there is no "Substituted console command" line, this suggests an ini misconfiguration. Go to the *Necessary ini Tweaks* section and ensure the required ini lines are present. If you keep having trouble, contact the Unchained Team
+
+## Severe network lag
+NFO hosts: Make sure your game port is NOT 7777. Change it to 7778.  
+
+Other hosts: Make sure you don't have any applications using UDP/7777 on your computer.
 
 ## Known Issues
 1. For the host instance, animations are bugged. There is no workaround for this other than launching another instance, joining as a client, and playing on that instead.
 2. netcode is very sensitive to host and client FPS. It is strongly recommended that you cap the fps of the host instance, and advertise that fps in your server description. Clients should lock their fps to match. If the host is running at, for example, 120fps:
    * clients running at lower (<120) fps will get delayed hits, swing-throughs, and other netcode issues.
    * clients running at higher (>120) fps will get accelerated/early hits.
-
-## Headless Servers
-
->This section is under construction. Some portions and tools required are not ready for public use.
-
-Servers "with heads" run as if they were a client, rendering the game, gui, and everything as if they were a normal client. This can be very taxing on both the CPU and GPU, and highly inconvenient if you want to host and play on the same machine. (both instances will be eating resources) An instance can be launched "headless" so that it will not render the game and will only execute server-side logic. (or, at least, as little extra as possible) Doing this will bring that instance's resource demands to near-zero and thus help prevent server-side lag spikes.
-
-To run a host instance headless, launch as usual but pass the `-nullrhi` flag in the command line arguments shown in the C2GUILauncher. No window will be launched, and no rendering will be done. You will hear audio from this instance. Unfortunately, this means you also cannot send inputs or console commands!
-
-This issue is resolved with a combination of dll injection and blueprint mods. Set the initial map that the server will launch to `<INSERT MAP NAME HERE>` via the command line in the C2GUILauncher. Also, launch with the `TODO: SPECIAL RCON VERSION OF SERVERPLUGIN` mod enabled.
-
-> TODO: make a blueprint map to spawn the zombie BP
-> 
-> TODO: get the serverplugin RCON set up fully for public distribution and use
-
-The ServerRCONPlugin will launch a console window from the headless instance which will allow you to view the console. It will also listen on port TCP/9001 for commands you want the headless instance to execute. The `<INSERT MAP NAME HERE>` creates a persistent blueprint that will generate a steady stream of console commands for the RCON plugin to subsitute for it's own (your) commands sent to it on TCP/9001. 
-
-***TCP/9001 should not be exposed to the open internet!*** Doing this would give anyone and their grandma full freedom to execute admin commands on your server! They can't hack your machine, but they *can* ban people, kick people, and change the map to whatever they want! If you want your admins accessing this, use [ssh tunneling](https://www.ssh.com/academy/ssh/tunneling-example) or set up your firewall rules to allow only them!
-
->TODO: add authentication to the RCON plugin as a base, and make a client program for it.
